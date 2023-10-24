@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <!--Boostrap-->
+    <link href="~/Content/bootstrap/bootstrap.min.css" rel="stylesheet" />
+
+    <!--JQuery-->
+    <script src="~/Content/jquery/jquery.js"></script>
+
+    <!--Awesome-->
+    <link href="~/Content/fontawesome-free-6.4.2-web/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-free-6.4.2-web/css/fontawesome.min.css" rel="stylesheet" />
+
+    <!--main style-->
+    <link href="~/Content/style/site.css" rel="stylesheet" />
+</head>
+<body>
+    <!--Header-->
+    @RenderPage("~/Views/Shared/parts/_Header.cshtml")
+    <!--Content-->
+    <div id="main" style="padding-top: 74px">
+        @RenderBody()
+    </div>
+    <!--Footer-->
+    @RenderPage("~/Views/Shared/parts/_Footer.cshtml")
+    <!--Back Header-->
+</body>
+</html>
+
