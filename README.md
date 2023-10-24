@@ -5,3 +5,4 @@ Hướng dẫn run code
 + data source= sever sql của bạn
 + user id= tên đăng nhập
 + password= mật khẩu
+* Tài khoản admin : username: admin, password: namdinh1
