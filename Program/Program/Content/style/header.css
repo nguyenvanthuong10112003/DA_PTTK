@@ -2,7 +2,7 @@
     background-color: rgba(33,37,41,1);
     font-family: 'Source Sans Pro', sans-serif;
     position: fixed;
-    z-index: 1000;
+    z-index: 1003;
     width: 100%;
 }
 
@@ -19,20 +19,14 @@
     color: inherit;
 }
 
-    .header-blue .navbar .navbar-brand:hover {
-        color: #f0f0f0;
-    }
-
-.header-blue .navbar .navbar-collapse {
-    border-top: 1px solid rgba(255,255,255,0.3);
-    margin-top: .5rem;
+.header-blue .navbar .navbar-brand:hover {
+   color: #f0f0f0;
 }
 
-@media (min-width:768px) {
-    .header-blue .navbar .navbar-collapse {
-        border-color: transparent;
-        margin: 0;
-    }
+
+.header-blue .navbar .navbar-collapse {
+   border-color: transparent;
+   margin: 0;
 }
 
 .header-blue .navbar .navbar-collapse span .login {
@@ -41,9 +35,9 @@
     text-decoration: none;
 }
 
-    .header-blue .navbar .navbar-collapse span .login:hover {
-        color: #fff;
-    }
+.header-blue .navbar .navbar-collapse span .login:hover {
+    color: #fff;
+}
 
 .header-blue .navbar .navbar-toggler {
     border-color: rgba(255,255,255,0.3);
@@ -53,9 +47,9 @@
     background-color: white;
 }
 
-    .navbar-toggler:hover, .two-btns a:hover, #link-home:hover {
-        opacity: 0.8;
-    }
+.navbar-toggler:hover, .two-btns a:hover, #link-home:hover {
+    opacity: 0.8;
+}
 
 .navbar-toggler:focus {
     box-shadow: none;

@@ -79,4 +79,25 @@ p {
     #content .title {
         font-size: 20px;
     }
+
+    .d-bl {
+        display: block !important;
+    }
+}
+
+#sidebar-nav .nav-item:first-child .nav-link:first-child:hover {
+    opacity: 0.8;
+}
+
+#sidebar-nav .nav-item:first-child .nav-link:last-child i {
+    color: #000000;
+}
+
+#sidebar-nav .nav-item:first-child .nav-link:last-child:hover {
+    background-color: red;
+    color: #ffffff !important;
+}
+
+#sidebar-nav .nav-item:first-child .nav-link:last-child:hover i {
+    color: #ffffff;
 }

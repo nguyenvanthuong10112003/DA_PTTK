@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Program.Models;
 using Program.Define;
 using System.Security.Principal;
-
+using Program.Define;
 namespace Program.Controllers
 {
     public class AccountController : Controller
@@ -18,14 +18,14 @@ namespace Program.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (Session[DefineSession.userSession] != null)
-                    return RedirectToAction("Start", "Home");
                 if (Request.Cookies[DefineCookie.cookieUsername] != null && Request.Cookies[DefineCookie.cookiePassword] != null) {
                     string username = Request.Cookies[DefineCookie.cookieUsername].Value;
                     string password = Request.Cookies[DefineCookie.cookiePassword].Value;
-                    if (new AccountModel().checkLoginByCookie(new Account(username, password)))
+                    string[,] keyValue = { { "@username", username } };
+                    List<TaiKhoan> listTaiKhoan = new DBModel<TaiKhoan>().findByKeys(DefineProcSQL.findTaiKhoan, keyValue);
+                    if (listTaiKhoan != null && listTaiKhoan.Count > 0 && listTaiKhoan[0].TK_MatKhau == password)
                     {
-                        ThanhVien thanhVien = new MemberModel().findThanhVienByUsername(username);
+                        ThanhVien thanhVien = new DBModel<ThanhVien>().findByKeys(DefineProcSQL.findThanhVien, keyValue)[0];
                         if (thanhVien != null)
                         {
                             Session.Add(DefineSession.userSession, thanhVien);
@@ -42,11 +42,12 @@ namespace Program.Controllers
         {
             if (ModelState.IsValid)
             {
-                TaiKhoan taiKhoan = new AccountModel().findTaiKhoanByUsername(account.username);
-                if (taiKhoan != null)
-                    if (BCrypt.Net.BCrypt.Verify(account.password, taiKhoan.TK_MatKhau))
+                string[,] keyValue = { { "@username", account.username } };
+                List<TaiKhoan> listTaiKhoan = new DBModel<TaiKhoan>().findByKeys(DefineProcSQL.findTaiKhoan, keyValue);
+                if (listTaiKhoan != null && listTaiKhoan.Count > 0)
+                    if (BCrypt.Net.BCrypt.Verify(account.password, listTaiKhoan[0].TK_MatKhau))
                     {
-                        ThanhVien thanhVien = new MemberModel().findThanhVienByUsername(account.username);
+                        ThanhVien thanhVien = new DBModel<ThanhVien>().findByKeys(DefineProcSQL.findThanhVien, keyValue)[0];
                         if (thanhVien == null)
                         {
                             ModelState.AddModelError("", "Có lỗi xảy ra, vui lòng thử lại.");
@@ -56,12 +57,12 @@ namespace Program.Controllers
                         {
                             DateTime dateTime = DateTime.Now.AddDays(30);
                             Response.AppendCookie(
-                                new HttpCookie(DefineCookie.cookieUsername, taiKhoan.TK_TenDangNhap) { 
+                                new HttpCookie(DefineCookie.cookieUsername, listTaiKhoan[0].TK_TenDangNhap) { 
                                     Expires = dateTime, Secure = true
                                 }
                             );
                             Response.AppendCookie(
-                                new HttpCookie(DefineCookie.cookiePassword, taiKhoan.TK_MatKhau) { 
+                                new HttpCookie(DefineCookie.cookiePassword, listTaiKhoan[0].TK_MatKhau) { 
                                     Expires = dateTime, Secure = true
                                 }
                             );

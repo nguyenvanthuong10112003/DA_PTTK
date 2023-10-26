@@ -19,8 +19,7 @@ namespace Program.Models.DB
         [StringLength(50)]
         public string TK_TenDangNhap { get; set; }
 
-        [Column(TypeName = "text")]
-        [Required]
+        [StringLength(200)]
         public string TK_MatKhau { get; set; }
 
         [StringLength(6)]

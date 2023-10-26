@@ -7,9 +7,9 @@ namespace Program.Models
 {
     public class Account
     {
-        public string username { get; set; }
-        public string password { get; set; }
-        public bool remember { get; set; }
+        public string username { set; get; }
+        public string password { set; get; }
+        public bool remember { set; get; }
         public Account() {
             username = "";
             password = "";
@@ -19,12 +19,13 @@ namespace Program.Models
         {
             this.username = username;
             this.password = password;
-            this.remember = false;
+            remember = false;
         }
-        public Account(string username, string password, bool remember) { 
+        public Account(string username, string password, bool remember)
+        {
             this.username = username;
             this.password = password;
-            this.remember = remember;   
+            this.remember = remember;
         }
     }
 }

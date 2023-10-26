@@ -8,7 +8,7 @@ namespace Program.Models.DB
     public partial class QLNVContext : DbContext
     {
         public QLNVContext()
-            : base("name=QLNVContext2")
+            : base("name=QLNVContext3")
         {
         }
 
@@ -184,10 +184,6 @@ namespace Program.Models.DB
 
             modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.TK_TenDangNhap)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<TaiKhoan>()
-                .Property(e => e.TK_MatKhau)
                 .IsUnicode(false);
 
             modelBuilder.Entity<TaiKhoan>()

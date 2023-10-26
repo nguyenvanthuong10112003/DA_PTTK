@@ -22,7 +22,7 @@ namespace Program.Controllers
                 if (Session[DefineSession.urlBeforeSession] != null)
                 {
                     string[] urlBefore = (string[])Session[DefineSession.urlBeforeSession];
-                    Session.Remove(DefineSession.userSession);
+                    Session.Remove(DefineSession.urlBeforeSession);
                     return RedirectToAction(urlBefore[0], urlBefore[1]);
                 }
             }

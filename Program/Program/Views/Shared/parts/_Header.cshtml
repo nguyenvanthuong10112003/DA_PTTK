@@ -12,13 +12,19 @@
                 <a class="navbar-brand" href="#" style="text-align: right">
                     <span>Website</span><br /><span>Management</span>
                 </a>
-                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                @if (thanhVien != null) { 
+                    <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1" onclick="hide_show_sidebar()">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                }
                 <div class="collapse navbar-collapse"
                      id="navcol-1">
                     <ul class="nav navbar-nav">
+                        @if (thanhVien != null)
+                        {
+                            <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="#!"><i class="fa-solid fa-bars" onclick="hide_show_sidebar()" style="font-size: 30px"></i></a></li>
+                        }
                         <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="~/Home/Start">Home</a></li>
                     </ul>
                     @if (thanhVien == null)
@@ -36,8 +42,10 @@
                                 <i class="fa-solid fa-sort-down"></i>
                             </span>
                             <ul class="menu-items d-none">
-                                <a class="item-1" href="~/User/Profile"><li>My profile</li></a>
-                                <a class="item-2" href="~/Account/Logout"><li>Log Out</li></a>
+                                <a class="item-1" href="~/User/Profile">
+                                <li>My profile</li></a>
+                                <a class="item-2" href="~/Account/Logout">
+                                <li>Log Out</li></a>
                             </ul>
                         </div>
                     }
@@ -46,17 +54,20 @@
         </nav>
     </div>
 </div>
-
 <script>
     var menu = document.getElementsByClassName('menu-items')[0];
     var btn = document.querySelector('.btn.btn-light.action-button');
-    document.addEventListener('click', function (element) {
-        if (element.target != menu && element.target != btn) {
-            if(!menu.classList.contains('d-none'))
+    var btnRoot = document.getElementById('root');
+    if (btn != null && menu != null)
+        document.addEventListener('click', function (element) {
+            if (element.target != menu && element.target != btn) {
                 menu.classList.add('d-none');
-        }
-    })
+            }
+        })
     function hide_Show_Menu() {
         menu.classList.toggle('d-none');
+    }
+    function hide_show_sidebar() {
+        btnRoot.classList.toggle('toggle-sidebar');
     }
 </script>

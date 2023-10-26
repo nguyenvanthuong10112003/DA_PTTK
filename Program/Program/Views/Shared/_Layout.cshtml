@@ -14,19 +14,30 @@
     <link href="~/Content/fontawesome-free-6.4.2-web/css/all.min.css" rel="stylesheet" />
     <link href="~/Content/fontawesome-free-6.4.2-web/css/fontawesome.min.css" rel="stylesheet" />
 
+    <!--Template style-->
+    <link href="~/Content/assets/css/style.css" rel="stylesheet">
+
     <!--main style-->
     <link href="~/Content/style/site.css" rel="stylesheet" />
 </head>
 <body>
-    <!--Header-->
-    @RenderPage("~/Views/Shared/parts/_Header.cshtml")
-    <!--Content-->
-    <div id="main" style="padding-top: 74px">
-        @RenderBody()
+    @using Program.Define;
+    <div id="root" class="toggle-sidebar">
+        <!--Header-->
+        @RenderPage("~/Views/Shared/parts/_Header.cshtml")
+        <!--Side bar-->
+        @if (Session[DefineSession.userSession] != null)
+        {
+            @RenderPage("~/Views/Shared/parts/_Sidebar.cshtml")
+        }
+        <!--Content-->
+        <div id="main" style="padding-top: 74px">
+            @RenderBody()
+        </div>
+        <!--Footer-->
+        @RenderPage("~/Views/Shared/parts/_Footer.cshtml")
+        <!--Back Header-->
     </div>
-    <!--Footer-->
-    @RenderPage("~/Views/Shared/parts/_Footer.cshtml")
-    <!--Back Header-->
 </body>
 </html>
 
