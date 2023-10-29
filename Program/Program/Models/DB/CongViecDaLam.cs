@@ -31,8 +31,8 @@ namespace Program.Models.DB
 
         public bool CVDL_PartOrFull { get; set; }
 
-        [StringLength(20)]
-        public string CVDL_ChucVu { get; set; }
+        [StringLength(10)]
+        public string ChucVu_Ma { get; set; }
 
         [StringLength(10)]
         public string CV_Ma { get; set; }
@@ -47,6 +47,8 @@ namespace Program.Models.DB
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChamCong> ChamCongs { get; set; }
+
+        public virtual ChucVu ChucVu { get; set; }
 
         public virtual CongViec CongViec { get; set; }
 

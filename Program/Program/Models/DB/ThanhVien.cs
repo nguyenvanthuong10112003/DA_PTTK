@@ -13,13 +13,12 @@ namespace Program.Models.DB
         public ThanhVien()
         {
             BaoHiems = new HashSet<BaoHiem>();
-            BoPhans = new HashSet<BoPhan>();
             CongViecDaLams = new HashSet<CongViecDaLam>();
             Gopies = new HashSet<GopY>();
             HanhDongs = new HashSet<HanhDong>();
             KhenThuongs = new HashSet<KhenThuong>();
             NganHangs = new HashSet<NganHang>();
-            PhongBans = new HashSet<PhongBan>();
+            TaiKhoans = new HashSet<TaiKhoan>();
             ThongBaos = new HashSet<ThongBao>();
             TongKetLuongs = new HashSet<TongKetLuong>();
             ViPhams = new HashSet<ViPham>();
@@ -29,8 +28,8 @@ namespace Program.Models.DB
         [StringLength(10)]
         public string TV_Ma { get; set; }
 
-        [StringLength(30)]
-        public string TV_TenDayDu { get; set; }
+        [StringLength(50)]
+        public string TV_HoVaTen { get; set; }
 
         public bool? TV_GioiTinh { get; set; }
 
@@ -40,7 +39,7 @@ namespace Program.Models.DB
         [StringLength(10)]
         public string TV_SoDienThoai { get; set; }
 
-        [StringLength(50)]
+        [StringLength(100)]
         public string TV_Email { get; set; }
 
         [Column(TypeName = "ntext")]
@@ -51,14 +50,8 @@ namespace Program.Models.DB
 
         public double? TV_PhuCap { get; set; }
 
-        [StringLength(50)]
-        public string TK_TenDangNhap { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<BaoHiem> BaoHiems { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<BoPhan> BoPhans { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CongViecDaLam> CongViecDaLams { get; set; }
@@ -76,9 +69,7 @@ namespace Program.Models.DB
         public virtual ICollection<NganHang> NganHangs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhongBan> PhongBans { get; set; }
-
-        public virtual TaiKhoan TaiKhoan { get; set; }
+        public virtual ICollection<TaiKhoan> TaiKhoans { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThongBao> ThongBaos { get; set; }

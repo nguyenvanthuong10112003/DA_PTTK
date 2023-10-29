@@ -1,0 +1,45 @@
+﻿.input {
+    padding: 12px 24px !important;
+}
+
+#main {
+    padding: 0!important;
+}
+
+.mb-1-5 {
+    margin-bottom: 1.5rem !important;
+}
+
+* {
+    font-family: "Open Sans", sans-serif;
+}
+
+li {
+    list-style: none;
+}
+
+#main {
+    margin: 0 !important;
+}
+
+#password {
+    padding: 0 !important;
+    border: none;
+}
+
+    #password:focus {
+        box-shadow: none;
+    }
+
+.input-password {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 24px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input:focus {
+    box-shadow: none !important;
+    border-color: #ced4da !important;
+}

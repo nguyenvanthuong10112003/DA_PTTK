@@ -1,7 +1,7 @@
 ﻿@model Program.Models.Account
 @using Program.Models;
 @{
-    ViewBag.Title = "Trang đăng nhập";
+    ViewBag.Title = "Page register";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Account account = Model;
     if (account == null)
@@ -9,7 +9,7 @@
         account = new Account();
     }
 }
-<link href="~/Content/style/loginstyle.css" rel="stylesheet" />
+<link href="~/Content/style/userstyle.css" rel="stylesheet" />
 <section class="vh-100 pd-20-30" style="background-color: #eee;">
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -18,14 +18,29 @@
                     <div class="card-body p-md-5">
                         <div class="row justify-content-center">
                             <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
-                                <p class="text-center h1 fw-bold mb-1-5 mx-1 mx-md-4 mt-4">Login</p>
-                                <form id="form-login" class="mx-1 mx-md-4" action="~/account/login" method="post">
+                                <p class="text-center h1 fw-bold mb-1-5 mx-1 mx-md-4 mt-4">Register</p>
+                                <form id="form-login" class="mx-1 mx-md-4" action="~/user/login" method="post">
 
                                     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
                                     <div class="d-flex flex-row align-items-center mb-4">
+                                        <div class="form-outline flex-fill mb-0 input-code d-none">
+                                            <input type="radio" id="section-id" class="input form-control" name="section-id"/>
+                                            <label for="section-id">Use your id</label>
+                                        </div>
+                                        <div class="form-outline flex-fill mb-0 input-code d-none">
+                                            <input type="text" id="code" class="input form-control" name="code" placeholder="Input your id" value="@account.code" autofocus="true" />
+                                            <p class="text-danger" id="errorCode"></p>
+                                        </div>
+                                        <div class="form-outline flex-fill mb-0 input-email d-none">
+                                            <input type="email" id="email" class="input form-control" name="email" placeholder="Input your email" value="@account.email" autofocus="true" />
+                                            <p class="text-danger" id="errorEmail"></p>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex flex-row align-items-center mb-4">
                                         <div class="form-outline flex-fill mb-0">
-                                            <input type="text" id="username" class="input form-control" name="username" placeholder="Input your username" value="@account.username" autofocus="true" />
+                                            <input type="text" id="username" class="input form-control" name="username" placeholder="Input username" value="@account.username" />
                                             <p class="text-danger" id="errorUsername"></p>
                                         </div>
                                     </div>
@@ -33,26 +48,26 @@
                                     <div class="d-flex flex-row align-items-center mb-4">
                                         <div class="form-outline flex-fill mb-0">
                                             <span class="input form-control input-password">
-                                                <input type="password" show id="password" class="input form-control" name="password" placeholder="Input your password" value="@account.password" />
+                                                <input type="password" show id="password" class="input form-control" name="password" placeholder="Input password" value="@account.password" />
                                                 <i class="fa-solid fa-eye" onclick="viewPassword()"></i>
                                                 <i class="fa-solid fa-eye-slash d-none" onclick="hidePassword()"></i>
-                                            </span>                                            
+                                            </span>
                                             <p class="text-danger" id="errorPassword"></p>
                                         </div>
                                     </div>
 
-                                    <div class="d-flex flex-row align-items-center mb-4">
-                                        <div class="">
-                                            <input type="checkbox" id="remember" name="remember" checked="@account.remember" value="true" />
-                                            <label for="remember">Duy trì đăng nhập</label>
+                                    <div class="d-flex flex-row align-items-center mb-4 flex-wrap justify-content-between">
+                                        <div>
+                                            <input type="checkbox" id="accept" name="accept" checked="@account.accept" value="true" />
+                                            <label for="accept">Chấp nhận <a href="#">điều khoản</a> của chúng tôi.</label>
                                         </div>
                                     </div>
 
-                                    <div class="d-flex mx-4 mb-3 mb-lg-4" style="justify-content: space-evenly;">
+                                    <div class="d-flex mx-4 mb-3 mb-lg-4 flex-wrap" style="justify-content: space-evenly;">
                                         <a href="#">
                                             <button onclick="submitForm()"
                                                     type="button" class="btn btn-primary btn-lg" style="background-color:#0D6EFD; border: 0;">
-                                                Login
+                                                Register
                                             </button>
                                         </a>
                                         <a href="~/Home/Index">
@@ -62,6 +77,14 @@
                                         </a>
                                     </div>
 
+                                    <div class="d-flex flex-row align-items-center mb-4 justify-content-center">
+                                        <div class="">
+                                            <label for="register">
+                                                Bạn đã có tài khoản?
+                                                <a href="~/User/Login">Đăng nhập</a>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </form>
 
                             </div>
@@ -78,38 +101,6 @@
         </div>
     </div>
 </section>
-<style>
-    li {
-        list-style: none;
-    }
-
-    #main {
-        margin: 0 !important;
-    }
-
-    #password {
-        padding: 0 !important;
-        border: none;
-    }
-
-    #password:focus {
-        box-shadow: none;
-    }
-
-    .input-password {
-        display: flex;
-        flex-direction: row;
-        padding: 12px 24px;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    input:focus {
-        box-shadow: none !important;
-        border: none;
-    }
-</style>
-
 
 <script>
     function submitForm() {
@@ -127,10 +118,10 @@
             }
             if (password.length < 6) {
                 errorPassword.innerHTML = "Mật khẩu phải có từ 6 ký tự trở lên";
-            } 
+            }
             if (username.indexOf(' ') != -1) {
                 errorUsername.innerHTML = "Tên đăng nhập không được chứa ký tự dấu cách"
-            } 
+            }
             return;
         }
 

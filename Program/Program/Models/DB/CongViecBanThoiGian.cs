@@ -16,7 +16,7 @@ namespace Program.Models.DB
         [Column(TypeName = "ntext")]
         public string CVBTG_MoTa { get; set; }
 
-        public double? CVBTG_LuongTheoGio { get; set; }
+        public double CVBTG_LuongTheoGio { get; set; }
 
         public virtual CongViec CongViec { get; set; }
     }

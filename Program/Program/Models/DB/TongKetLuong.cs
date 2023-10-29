@@ -11,15 +11,11 @@ namespace Program.Models.DB
     {
         [Key]
         [Column(Order = 0)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public short TKL_Nam { get; set; }
+        [StringLength(7)]
+        public string TKL_ThangNam { get; set; }
 
         [Key]
         [Column(Order = 1)]
-        public byte TKL_Thang { get; set; }
-
-        [Key]
-        [Column(Order = 2)]
         [StringLength(10)]
         public string TV_Ma { get; set; }
 

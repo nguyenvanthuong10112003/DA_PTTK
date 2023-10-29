@@ -18,7 +18,7 @@ namespace Program.Models.DB
         [StringLength(10)]
         public string CVDL_Ma { get; set; }
 
-        public bool NL_NghiCoPhep { get; set; }
+        public bool? NL_NghiCoPhep { get; set; }
 
         [StringLength(200)]
         public string NL_LyDoNghi { get; set; }

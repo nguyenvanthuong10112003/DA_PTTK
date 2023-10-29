@@ -8,13 +8,14 @@ namespace Program.Models.DB
     public partial class QLNVContext : DbContext
     {
         public QLNVContext()
-            : base("name=QLNVContext3")
+            : base("name=QLNVContext")
         {
         }
 
         public virtual DbSet<BaoHiem> BaoHiems { get; set; }
         public virtual DbSet<BoPhan> BoPhans { get; set; }
         public virtual DbSet<ChamCong> ChamCongs { get; set; }
+        public virtual DbSet<ChucVu> ChucVus { get; set; }
         public virtual DbSet<CongViec> CongViecs { get; set; }
         public virtual DbSet<CongViecBanThoiGian> CongViecBanThoiGians { get; set; }
         public virtual DbSet<CongViecDaLam> CongViecDaLams { get; set; }
@@ -55,15 +56,20 @@ namespace Program.Models.DB
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<BoPhan>()
-                .Property(e => e.TV_Ma)
-                .IsFixedLength()
-                .IsUnicode(false);
-
             modelBuilder.Entity<ChamCong>()
                 .Property(e => e.CVDL_Ma)
                 .IsFixedLength()
                 .IsUnicode(false);
+
+            modelBuilder.Entity<ChucVu>()
+                .Property(e => e.CV_Ma)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ChucVu>()
+                .HasMany(e => e.CongViecDaLams)
+                .WithOptional(e => e.ChucVu)
+                .HasForeignKey(e => e.ChucVu_Ma);
 
             modelBuilder.Entity<CongViec>()
                 .Property(e => e.CV_Ma)
@@ -82,6 +88,11 @@ namespace Program.Models.DB
 
             modelBuilder.Entity<CongViecDaLam>()
                 .Property(e => e.CVDL_Ma)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CongViecDaLam>()
+                .Property(e => e.ChucVu_Ma)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -169,11 +180,6 @@ namespace Program.Models.DB
                 .IsUnicode(false);
 
             modelBuilder.Entity<PhongBan>()
-                .Property(e => e.TV_Ma)
-                .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<PhongBan>()
                 .HasMany(e => e.BoPhans)
                 .WithOptional(e => e.PhongBan)
                 .WillCascadeOnDelete();
@@ -187,12 +193,16 @@ namespace Program.Models.DB
                 .IsUnicode(false);
 
             modelBuilder.Entity<TaiKhoan>()
+                .Property(e => e.TK_MatKhau)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.TK_MaXacThuc)
                 .IsFixedLength()
                 .IsUnicode(false);
 
             modelBuilder.Entity<TaiKhoan>()
-                .Property(e => e.TK_MaBaoVe)
+                .Property(e => e.TV_Ma)
                 .IsFixedLength()
                 .IsUnicode(false);
 
@@ -218,10 +228,6 @@ namespace Program.Models.DB
             modelBuilder.Entity<ThanhVien>()
                 .Property(e => e.TV_SoCCCD)
                 .IsFixedLength()
-                .IsUnicode(false);
-
-            modelBuilder.Entity<ThanhVien>()
-                .Property(e => e.TK_TenDangNhap)
                 .IsUnicode(false);
 
             modelBuilder.Entity<ThanhVien>()
@@ -261,6 +267,11 @@ namespace Program.Models.DB
 
             modelBuilder.Entity<ThongBao>()
                 .Property(e => e.HD_Ma)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<TongKetLuong>()
+                .Property(e => e.TKL_ThangNam)
                 .IsFixedLength()
                 .IsUnicode(false);
 

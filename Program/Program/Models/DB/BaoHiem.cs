@@ -19,7 +19,7 @@ namespace Program.Models.DB
         [Column(TypeName = "date")]
         public DateTime? BH_NgayHetHan { get; set; }
 
-        [StringLength(50)]
+        [Column(TypeName = "ntext")]
         public string BH_NoiCap { get; set; }
 
         [StringLength(10)]

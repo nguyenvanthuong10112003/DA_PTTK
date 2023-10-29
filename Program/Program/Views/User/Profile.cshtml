@@ -1,12 +1,13 @@
-﻿@using Program.Models.DB;
+﻿@model Program.Models.DB.ThanhVien
+@using Program.Models;
 @using Program.Define;
 @{
     ViewBag.Title = "Profile";
-    ThanhVien thanhVien = (ThanhVien)Session[DefineSession.userSession];
 }
 <div class="container">
     <div class="main-body">
-
+    @if (Model != null)
+    {
         <!-- Breadcrumb -->
         <nav aria-label="breadcrumb" class="main-breadcrumb">
             <ol class="breadcrumb">
@@ -24,11 +25,11 @@
                         <div class="d-flex flex-column align-items-center text-center">
                             <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar" class="rounded-circle" width="150">
                             <div class="mt-3">
-                                <h4>@thanhVien.TK_TenDangNhap</h4>
+                                <h4>@(((UserLogin)Session[DefineSession.userSession]).username)</h4>
                                 @*<p class="text-secondary mb-1">@thanhVien.CongViecDaLams.Last().BoPhan.PhongBan.PB_Ten</p>
                                 <p class="text-muted font-size-sm">@thanhVien.CongViecDaLams.Last().BoPhan.BP_Ten</p>
                                 <p class="text-secondary mb-1">@thanhVien.CongViecDaLams.Last().CVDL_ChucVu</p>*@
-                                <p>@thanhVien.CongViecDaLams.ToList().Count</p>
+                                <p>@(Model.CongViecDaLams.Count)</p>
                             </div>
                         </div>
                     </div>
@@ -170,12 +171,8 @@
                         </div>
                     </div>
                 </div>
-
-
-
             </div>
         </div>
-
-    </div>
+    }
 </div>
 

@@ -1,18 +1,18 @@
 ﻿@{
     ViewBag.Title = "_Header";
-    ThanhVien thanhVien = (ThanhVien)Session[DefineSession.userSession];
+    Program.Models.UserLogin userSession = (Program.Models.UserLogin)Session[DefineSession.userSession];
 }
-@using Program.Models.DB;
+@using Program.Models;
 @using Program.Define; 
 <link href="~/Content/style/header.css" rel="stylesheet" />
 <div>
     <div class="header-blue">
         <nav class="navbar navbar-light navbar-expand-md navigation-clean-search" style="padding: 0">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" style="text-align: right">
+                <a class="navbar-brand" href="~/Home" style="text-align: right">
                     <span>Website</span><br /><span>Management</span>
                 </a>
-                @if (thanhVien != null) { 
+                @if (userSession != null) { 
                     <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1" onclick="hide_show_sidebar()">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="navbar-toggler-icon"></span>
@@ -21,30 +21,30 @@
                 <div class="collapse navbar-collapse"
                      id="navcol-1">
                     <ul class="nav navbar-nav">
-                        @if (thanhVien != null)
+                        @if (userSession != null)
                         {
                             <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="#!"><i class="fa-solid fa-bars" onclick="hide_show_sidebar()" style="font-size: 30px"></i></a></li>
                         }
                         <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="~/Home/Start">Home</a></li>
                     </ul>
-                    @if (thanhVien == null)
+                    @if (userSession == null)
                     {
                         <div class="two-btns">
-                            <span class="navbar-text"> <a class="login" href="~/Account/Login">Log In</a></span>
-                            <a class="btn btn-light action-button" role="button" href="~/Account/Register">Sign up</a>
+                            <span class="navbar-text"> <a class="login" href="~/User/Login">Log In</a></span>
+                            <a class="btn btn-light action-button" role="button" href="~/User/Register">Sign up</a>
                         </div>
                     }
                     else
                     {
                         <div class="two-btns">
                             <span class="btn btn-light action-button" role="button" onclick="hide_Show_Menu()">
-                                @thanhVien.TV_TenDayDu
+                                @userSession.username
                                 <i class="fa-solid fa-sort-down"></i>
                             </span>
                             <ul class="menu-items d-none">
                                 <a class="item-1" href="~/User/Profile">
                                 <li>My profile</li></a>
-                                <a class="item-2" href="~/Account/Logout">
+                                <a class="item-2" href="~/User/Logout">
                                 <li>Log Out</li></a>
                             </ul>
                         </div>

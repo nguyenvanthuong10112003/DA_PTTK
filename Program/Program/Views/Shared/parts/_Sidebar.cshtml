@@ -1,7 +1,8 @@
 ﻿@{ 
-    ThanhVien thanhVien = (ThanhVien)Session[DefineSession.userSession];
+    UserLogin userSession = (UserLogin)Session[DefineSession.userSession];
 }
 @using Program.Models.DB;
+@using Program.Models;
 @using Program.Define;
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
@@ -10,9 +11,9 @@
         <li class="nav-item d-bl" style="display: none; border: 1px solid rgba(33,37,41,1); border-radius: 10px; padding: 5px">
             <a class="nav-link " href="~/User/Profile" style="background-color: rgba(33,37,41,1); color: #ffffff; margin-bottom: 2px">
                 <i class="fa-solid fa-user" style="color: #ffffff"></i>
-                <span>@thanhVien.TK_TenDangNhap</span>
+                <span>@userSession.username</span>
             </a>
-            <a class="nav-link " href="~/Account/Logout" style="color: black">
+            <a class="nav-link " href="~/User/Logout" style="color: black">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Logout</span>
             </a>

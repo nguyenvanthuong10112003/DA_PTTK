@@ -191,8 +191,14 @@ h6 {
   background-color: #fff;
 }
 
+@media (max-width: 414px) {
+    .sidebar {
+        width: 100%;
+    }
+}
+
 .toggle-sidebar .sidebar {
-    margin-left: -300px;
+    margin-left: -100%;
 }
 
 .sidebar::-webkit-scrollbar {

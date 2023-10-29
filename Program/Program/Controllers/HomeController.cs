@@ -15,17 +15,6 @@ namespace Program.Controllers
 
         public ActionResult Start()
         {
-            if (ModelState.IsValid)
-            {
-                if (Session[DefineSession.userSession] == null)
-                    return RedirectToAction("Login", "Account");
-                if (Session[DefineSession.urlBeforeSession] != null)
-                {
-                    string[] urlBefore = (string[])Session[DefineSession.urlBeforeSession];
-                    Session.Remove(DefineSession.urlBeforeSession);
-                    return RedirectToAction(urlBefore[0], urlBefore[1]);
-                }
-            }
             return View();
         }
     }

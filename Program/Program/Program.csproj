@@ -132,7 +132,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Define\DefineCookie.cs" />
@@ -142,11 +142,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs" />
-    <Compile Include="Models\ActionNotice.cs" />
+    <Compile Include="Models\DAO\TaiKhoanDAO.cs" />
     <Compile Include="Models\DBModel.cs" />
     <Compile Include="Models\DB\BaoHiem.cs" />
     <Compile Include="Models\DB\BoPhan.cs" />
     <Compile Include="Models\DB\ChamCong.cs" />
+    <Compile Include="Models\DB\ChucVu.cs" />
     <Compile Include="Models\DB\CongViec.cs" />
     <Compile Include="Models\DB\CongViecBanThoiGian.cs" />
     <Compile Include="Models\DB\CongViecDaLam.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="Models\DB\ThongBao.cs" />
     <Compile Include="Models\DB\TongKetLuong.cs" />
     <Compile Include="Models\DB\ViPham.cs" />
+    <Compile Include="Models\UserLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2311,7 +2313,7 @@
     <Content Include="Content\imgs\img-of-login.jpg" />
     <Content Include="Content\jquery\jquery.js" />
     <Content Include="Content\style\header.css" />
-    <Content Include="Content\style\loginstyle.css" />
+    <Content Include="Content\style\userstyle.css" />
     <Content Include="Content\style\profile.css" />
     <Content Include="Content\style\site.css" />
     <Content Include="favicon.ico" />
@@ -2439,14 +2441,14 @@
     <Content Include="Views\Shared\parts\_Footer.cshtml" />
     <Content Include="Views\Shared\parts\_Header.cshtml" />
     <Content Include="Views\Home\Start.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Logout.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Shared\parts\_Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\script\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap\bootstrap.rtl.min.css.map" />
