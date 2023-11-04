@@ -1,0 +1,312 @@
+﻿@using Program.Define;
+@using Program.Models;
+@{
+    ViewBag.Title = "ThanhVien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.pageNow =
+        new LocationPage(DefinePage.home,
+            new LocationPage(DefinePage.management,
+                new LocationPage(DefinePage.management_ThanhVien)));
+    string name = "thành viên";
+}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <h1 class="text-dark">Danh sách @name</h1>
+    </div>
+    <!-- Main content -->
+    <div class="content">
+        <div class="container-fluid" style="padding: 0">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h3 class="card-title">Lọc @name</h3>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form method="GET" action="https://1900.com.vn/admin/jobs" id="filter-job-form">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Mã</label>
+                                            <input type="text" name="code" class="form-control" value=""
+                                                   placeholder="Nhập mã">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Họ và tên</label>
+                                            <input type="text" name="fullName" class="form-control" value=""
+                                                   placeholder="Nhập tên">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Trạng thái</label>
+                                            <select id="status" class="form-control" name="status">
+                                                <option value="">Tất cả</option>
+                                                <option value="draft">Chưa duyệt</option>
+                                                <option value="published">Đã xuất bản</option>
+                                                <option value="no_publish">Không duyệt</option>
+                                                <option value="deleted">Đã xóa</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Giới tính</label>
+                                            <select class="form-control" name="company_status">
+                                                <option value="" selected="selected">Không xác định</option>
+                                                <option value="1">Nam</option>
+                                                <option value="2">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Tình trạng nhóm (nghề nghiệp)</label>
+                                            <select id="career_status" class="form-control"
+                                                    name="career_status">
+                                                <option value="" selected="selected">Tất cả</option>
+                                                <option value="1">Đã nhóm</option>
+                                                <option value="2">Chưa nhóm</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Từ khóa</label>
+                                            <input type="text" name="keyword" class="form-control" value=""
+                                                   placeholder="Nhập từ khóa hoặc id">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Ngày tạo</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">
+                                                        <i class="far fa-calendar-alt"></i>
+                                                    </span>
+                                                </div>
+                                                <input type="text" class="form-control float-right"
+                                                       name="datefilter" value=""
+                                                       placeholder="Chọn khoảng thời gian" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Website</label>
+                                            <select id="origin_url" class="form-control" name="origin_url">
+                                                <option value="" selected="selected">Tất cả</option>
+                                                <option value="vietnamworks">
+                                                    https://www.vietnamworks.com
+                                                </option>
+                                                <option value="joboko">https://vn.joboko.com</option>
+                                                <option value="job123">https://123job.vn</option>
+                                                <option value="careerlink">https://www.careerlink.vn</option>
+                                                <option value="careerbuilder">https://careerbuilder.vn</option>
+                                                <option value="jobsgo">https://jobsgo.vn</option>
+                                                <option value="timviec365">https://timviec365.vn</option>
+                                                <option value="vieclam123">https://vieclam123.vn</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-danger" id="reset-filter"
+                                                    type="button">
+                                                Reset
+                                            </button>
+                                            <button class="btn btn-primary">
+                                                <i class="fa fa-search mr-1"></i>Tìm
+                                                kiếm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input name="sortBy" type="hidden">
+                                <input name="sortDir" type="hidden">
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <b style="padding-top: 20px; font-size: 20px;">Tổng số: 1,092 việc làm</b>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <form method="GET" action="https://1900.com.vn/admin/jobs"
+                                          accept-charset="UTF-8" class="js-filter-table" data-table="#table-job">
+                                        <div class="input-group input-group-sm mt-1">
+                                            <input class="form-control float-right" placeholder="Tìm kiếm"
+                                                   name="keyword" type="text">
+                                            <input name="sortBy" type="hidden">
+                                            <input name="sortDir" type="hidden">
+
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <form method="POST" action="https://1900.com.vn/admin/jobs/update-career">
+                                <input type="hidden" name="_token"
+                                       value="2iceAs2DSjmQ7zBsuBssg01vZ4fqZCiOLl4HDHw4">
+                                <div class="px-4 pt-1 pb-2 sticky-top bg-white"
+                                     style="-webkit-box-shadow: 0px 0px 40px 0px rgb(10 10 10 / 9%);">
+                                    <div class="row mt-3">
+                                        <div class="col-12 col-sm-3 col-md-3 col-lg-1 d-flex align-items-center">
+                                            <label for="action_career_id" class="mb-2">Chức năng</label>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group mb-2">
+                                                <select class="form-control js-select2-ajax"
+                                                        id="action_career_id" data-placeholder="Chọn ngành nghề"
+                                                        data-ajax-url="https://1900.com.vn/job-suggest/careers?with=jobsCount"
+                                                        name="group_career_id"></select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group mb-2">
+                                                <button class="btn btn-primary" id="btnGroup" type="submit"
+                                                        title="Nhóm nhiều job cho nghề nghiệp">
+                                                    Nhóm
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-5">
+                                            <button type="button" class="btn btn-link float-right"
+                                                    data-toggle="modal" data-target="#guildlineModalCenter">
+                                                <i class="fa fa-book" aria-hidden="true"></i> Hướng dẫn
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="table-responsive-xl">
+                                    <table class="table table-hover" id="table-job">
+                                        <thead>
+                                            <tr>
+                                                <th width="50">
+                                                    <label class="icheck-primary mb-0 d-block">
+                                                        <input type="checkbox" value="all" id="all">
+                                                    </label>
+                                                </th>
+                                                <th class="sortable" data-sortby="id" width="80">ID</th>
+                                                <th class="sortable" data-sortby="title">Tên</th>
+                                                <th style="min-width: 150px">Nghề nghiệp</th>
+                                                <th width="300">Công ty</th>
+                                                <th width="120">Trạng thái</th>
+                                                <th width="120">Ngày đăng</th>
+                                                <th width="100">Hạn nộp</th>
+                                                <th width="100">Người nhập</th>
+                                                <th>Thời gian tạo</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <label class="icheck-primary mb-0 d-block">
+                                                        <input type="checkbox" value="43576" name="jobs[]"
+                                                               class="records">
+                                                    </label>
+                                                </td>
+                                                <td>43576</td>
+                                                <td>
+                                                    <a href="https://1900.com.vn/tim-viec-lam/ky-thuat-vien-it-43576"
+                                                       target="_blank">Kỹ Thuật Viên IT</a>
+                                                    <br>
+                                                    <small>
+                                                        <span class="text-danger">
+                                                            7 - 10
+                                                            triệu
+                                                        </span>
+                                                    </small><br>
+                                                    <small>
+                                                        <span data-toggle="tooltip" data-placement="top"
+                                                              data-html="true" title="Hà Nội">
+                                                            Hà
+                                                            Nội
+                                                        </span>
+                                                    </small>
+                                                </td>
+                                                <td>
+                                                    <br>
+                                                </td>
+                                                <td>
+                                                    Công ty TNHH Phần mềm RIC <br>
+                                                    <small class="text-danger">Chưa nhóm</small>
+                                                </td>
+                                                <td width="200">
+                                                    <div class="d-flex align-items-center">
+                                                        <select class="form-control status"
+                                                                name="status_deleted"
+                                                                data-action="https://1900.com.vn/admin/jobs/43576/changeStatus"
+                                                                data-status="draft" style="width: 140px">
+                                                            <option value="draft" selected>Chưa duyệt</option>
+                                                            <option value="published">Đã xuất bản</option>
+                                                            <option value="no_publish">Không duyệt</option>
+                                                            <option value="deleted">Đã xóa</option>
+                                                        </select>
+                                                        <img class="loading ml-2 d-none"
+                                                             src="https://1900.com.vn/images/loading.gif"
+                                                             alt="Loading" width="20">
+                                                        <img class="done ml-2 d-none"
+                                                             src="https://1900.com.vn/images/done.png" alt="Done"
+                                                             width="20">
+                                                        <img class="fail ml-2 d-none"
+                                                             src="https://1900.com.vn/images/fail.png" alt="Fail"
+                                                             width="20">
+                                                    </div>
+                                                </td>
+                                                <td><small>2023-10-20</small></td>
+                                                <td><small>2023-11-29</small></td>
+                                                <td>
+                                                    <a href="https://1900.com.vn/admin/users/85/edit">
+                                                        Huỳnh
+                                                        Đức
+                                                    </a>
+                                                </td>
+                                                <td width="165">
+                                                    <small>29/10/2023 10:29:09</small><br>
+                                                </td>
+                                                <td>
+                                                    <a href="https://1900.com.vn/admin/jobs/43576/edit"
+                                                       class="btn btn-primary btn-sm mr-1">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

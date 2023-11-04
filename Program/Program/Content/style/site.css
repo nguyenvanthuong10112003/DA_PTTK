@@ -101,3 +101,9 @@ p {
 #sidebar-nav .nav-item:first-child .nav-link:last-child:hover i {
     color: #ffffff;
 }
+
+.card-header {
+    flex-direction: row;
+    display: flex;
+    justify-content: space-between;
+}

@@ -1,4 +1,5 @@
-﻿using Program.Models.DB;
+﻿using Microsoft.Ajax.Utilities;
+using Program.Models.DB;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -35,6 +36,10 @@ namespace Program.Models.DAO
             }
             return true;
         }
+        public TaiKhoan GetTaiKhoanByMaThanhVien(string code)
+        {
+            return context.TaiKhoans.Where(e => e.TV_Ma == code).FirstOrDefault();
+        }
         public void changeLocked(TaiKhoan taiKhoan) {
             if (taiKhoan != null)
             {
@@ -45,6 +50,27 @@ namespace Program.Models.DAO
                     context.SaveChanges();
                 }
             }
+        }
+        public bool Insert(TaiKhoan taiKhoan)
+        {
+            context.TaiKhoans.Add(taiKhoan);
+            int count = context.SaveChanges();
+            if (count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool updateTaiKhoan(TaiKhoan taiKhoan)
+        {
+            if (taiKhoan != null)
+            {
+                context.TaiKhoans.AddOrUpdate(taiKhoan);
+                int count = context.SaveChanges();
+                if (count >= 1)
+                    return true;
+            }
+            return false;
         }
     }
 }

@@ -6,10 +6,16 @@ using System.Web.Mvc;
 using Program.Define;
 namespace Program.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
+            string[] beforeURL = (string[])Session[DefineSession.beforeUrlSesstion];
+            if (beforeURL != null)
+            {
+                Session.Remove(DefineSession.beforeUrlSesstion);
+                return RedirectToAction(beforeURL[0], beforeURL[1]);
+            }
             return View();
         }
 

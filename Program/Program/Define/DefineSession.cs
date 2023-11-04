@@ -8,5 +8,6 @@ namespace Program.Define
     public class DefineSession
     {
         public static string userSession {get;}= "SESSION_USER";
+        public static string beforeUrlSesstion { get; } = "SESSION_URL_BEFORE";
     }
 }

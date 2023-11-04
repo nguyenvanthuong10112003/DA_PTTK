@@ -1,13 +1,13 @@
 ﻿@{
-    ViewBag.Title = "Hệ thống quản lý nhân viên";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Trang chủ";
+    string success = ViewBag.success;
 }
-    <div id="background">
-        <span id="content">
-            <p class="title">HỆ THỐNG QUẢN LÝ NHÂN VIÊN</p>
-            <span>Công ty trách nhiệm hữu hạn 1 thành viên</span>
-            <a href="~/Home/Start"><button>Bắt đầu</button></a>
-        </span>
-        <img src="~/Content/imgs/image-game-background.jpg" alt="anh-nen">
+
+@if (!string.IsNullOrEmpty(success))
+{
+    <div class="alert alert-success">
+        <strong>@success</strong>
     </div>
+}
 

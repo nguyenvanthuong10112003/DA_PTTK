@@ -44,5 +44,13 @@ namespace Program.Models
             this.password = password;
             this.accept = accept;
         }
+        public bool checkUsingEmail()
+        {
+            if (!string.IsNullOrEmpty(email))
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

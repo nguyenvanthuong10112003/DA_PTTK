@@ -12,11 +12,24 @@ namespace Program
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
+
+            routes.MapRoute(
+                "Error - 404",
+                "NotFound",
+                new { controller = "Error", action = "NotFound" }
+                );
+
+            routes.MapRoute(
+                "Error - 500",
+                "ServerError",
+                new { controller = "Error", action = "ServerError" }
+                );
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                defaults: new { controller = "Home", action = "Start", id = UrlParameter.Optional },
                 namespaces: new [] {"Program.Controllers"}
             );
         }

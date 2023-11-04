@@ -23,9 +23,9 @@
                     <ul class="nav navbar-nav">
                         @if (userSession != null)
                         {
-                            <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="#!"><i class="fa-solid fa-bars" onclick="hide_show_sidebar()" style="font-size: 30px"></i></a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="#"><i class="fa-solid fa-bars" onclick="hide_show_sidebar()" style="font-size: 30px"></i></a></li>
                         }
-                        <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="~/Home/Start">Home</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" id="link-home" href="~/Home/Index">Home</a></li>
                     </ul>
                     @if (userSession == null)
                     {
@@ -43,9 +43,9 @@
                             </span>
                             <ul class="menu-items d-none">
                                 <a class="item-1" href="~/User/Profile">
-                                <li>My profile</li></a>
+                                <li class="d-flex flex-row align-items-center"><i class="fa-solid fa-id-badge" style="color: #000000; margin-right: 10px"></i><span>My profile</span></li></a>
                                 <a class="item-2" href="~/User/Logout">
-                                <li>Log Out</li></a>
+                                <li class="d-flex flex-row align-items-center"><i class="fa-solid fa-right-from-bracket" style="color: #000000; margin-right: 10px"></i><span>Log Out</span></li></a>
                             </ul>
                         </div>
                     }
