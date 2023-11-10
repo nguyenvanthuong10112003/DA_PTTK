@@ -18,6 +18,10 @@ img {
     width: 100%;
 }
 
+.clr-white {
+    color: white !important;
+}
+
 #content {
     position: absolute;
     z-index: 999;
@@ -83,6 +87,19 @@ p {
     .d-bl {
         display: block !important;
     }
+
+    .tablet-mr-10 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .header-view-list,
+    .header-sort-list {
+        transform: translateX(0) !important;
+        left: 0 !important;
+        right: 0 !important;
+        width: 100% !important;
+    }
 }
 
 #sidebar-nav .nav-item:first-child .nav-link:first-child:hover {
@@ -106,4 +123,152 @@ p {
     flex-direction: row;
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.content-wrapper .functions .list-function {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    padding: 0 0 10px;
+    margin: 0;
+}
+
+.content-wrapper .functions .list-function .function {
+    padding: 6px 12px;
+    font-size: 16px;
+    color: white;
+    background-color: rgba(33,37,41,1);
+    list-style: none;
+    font-weight: 600;
+    margin-right: 10px;
+    border: 1px solid black;
+    border-radius: 40px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.content-wrapper .functions .list-function .function i {
+    font-size: 16px;
+    margin-right: 10px;
+    color: #ffffff;
+}
+
+.content-wrapper .functions .list-function .function:hover,
+.content-wrapper .functions .list-function .function:hover i {
+    background-color: white;
+    color: black !important;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-functions {
+    flex-wrap: wrap;
+}
+
+.header-view-list,
+.header-sort-list {
+    width: 220px;
+    text-align: right;
+    background-color: rgba(33,37,41,1);
+    transform: translateX(-100%);
+    color: white !important;
+    padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 20px 5px, rgba(0, 0, 0, 0.2) 0px 10px 10px;
+    animation: upListView linear 0.4s, downListView linear 0.4s;
+    padding: 10px
+}
+
+.header-view-list li, 
+.header-sort-list li {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    background-color: #ffffff;
+    align-items: end;
+    align-items: center;
+    justify-content: right;
+    padding: 8px 16px;
+    background-color: rgba(33,37,41,1);
+    border-bottom: 1px solid white;
+    font-size: 16px;
+}
+
+.card .header-view-list li:last-child,
+.card .header-sort-list li:last-child {
+    border: 0;
+    justify-content: center;
+    border-radius: 30px;
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.card .header-view-list li:hover,
+.card .header-sort-list li:hover {
+    opacity: 0.8;
+}
+
+.card .header-view-list li input ,
+.card .header-sort-list li input {
+    margin-left: 5px;
+}
+
+.text-view, .text-sort {
+    padding: 8px 16px;
+    background-color: rgba(33,37,41,1);
+    color: white;
+    border: 1px solid rgba(33,37,41,1);
+    border-radius: 40px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.text-view:hover, .text-sort:hover {
+    background-color: white;
+    color: black;
+}
+
+@keyframes upListView {
+    from {
+        opacity: 1
+    }
+    to {
+        opacity: 0
+    }
+}
+
+@keyframes downListView {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.card-footer ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card-footer ul li a {
+    font-size: 16px;
+}
+
+.btns {
+    margin-top: 10px;
 }

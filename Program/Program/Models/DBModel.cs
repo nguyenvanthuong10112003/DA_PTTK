@@ -51,5 +51,17 @@ namespace Program.Models
             }
             return context.Database.SqlQuery<bool>(proc, parameters).SingleOrDefault();
         }
+        public List<T> getDataForPage(string proc, int page, int pageSize)
+        {
+            object[] parameters = { 
+                new SqlParameter("@Page", page),
+                new SqlParameter("@PageSize", pageSize)
+            };
+            return context.Database.SqlQuery<T>(proc, parameters).ToList();
+        }
+        public int getCountData(string proc)
+        {
+            return context.Database.SqlQuery<T>(proc).Count();
+        }
     }
 }

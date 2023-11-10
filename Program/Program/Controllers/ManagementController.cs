@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Program.Models.DB;
+using Program.Models.DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Program.Models;
 
 namespace Program.Controllers
 {
@@ -14,6 +17,7 @@ namespace Program.Controllers
         }
         public ActionResult ThanhVien() 
         {
+            ViewBag.countData = new ThanhVienDAO().getList().Count();
             return View();
         }
         public ActionResult PhongBan()

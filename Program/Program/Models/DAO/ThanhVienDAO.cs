@@ -17,7 +17,7 @@ namespace Program.Models.DAO
         {
             return context.ThanhViens.Find(code);
         }
-        public IEnumerable<ThanhVien> getList()
+        public List<ThanhVien> getList()
         {
             return context.ThanhViens.ToList();
         }

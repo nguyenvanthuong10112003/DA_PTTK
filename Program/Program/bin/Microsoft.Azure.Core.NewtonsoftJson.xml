@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+    <assembly>
+        <name>Microsoft.Azure.Core.NewtonsoftJson</name>
+    </assembly>
+    <members>
+        <member name="T:Azure.Core.Serialization.NewtonsoftJsonETagConverter">
+            <summary>
+            A <see cref="T:Newtonsoft.Json.JsonConverter" /> implementation for <see cref="T:Azure.ETag" />.
+            </summary>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonETagConverter.CanConvert(System.Type)">
+            <summary>
+            Determines whether this instance can convert the specified object type.
+            </summary><param name="objectType">Type of the object.</param><returns><c>true</c> if this instance can convert the specified object type; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonETagConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Reads the JSON representation of the object.
+            </summary><param name="reader">The <see cref="T:Newtonsoft.Json.JsonReader" /> to read from.</param><param name="objectType">Type of the object.</param><param name="existingValue">The existing value of object being read.</param><param name="serializer">The calling serializer.</param><returns>The object value.</returns>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonETagConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            Writes the JSON representation of the object.
+            </summary><param name="writer">The <see cref="T:Newtonsoft.Json.JsonWriter" /> to write to.</param><param name="value">The value.</param><param name="serializer">The calling serializer.</param>
+        </member>
+        <member name="T:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer">
+            <summary>
+            A <see cref="T:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer" /> implementation that uses <see cref="T:Newtonsoft.Json.JsonSerializer" /> to for serialization/deserialization.
+            </summary>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.#ctor">
+            <summary>
+            Initializes new instance of <see cref="T:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer" />. Uses setting returned by <see cref="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.CreateJsonSerializerSettings" />.
+            </summary>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.CreateJsonSerializerSettings">
+            <summary>
+            Returns a <see cref="T:Newtonsoft.Json.JsonSerializerSettings" /> that's used when initializing the <see cref="T:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer" /> using the parameterless constructor.
+            The settings have default converters added.
+            </summary>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.#ctor(Newtonsoft.Json.JsonSerializerSettings)">
+            <summary>
+            Initializes new instance of <see cref="T:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer" />.
+            </summary>
+            <param name="settings">The <see cref="T:Newtonsoft.Json.JsonSerializerSettings" /> instance to use when serializing/deserializing.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="settings" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.Deserialize(System.IO.Stream,System.Type,System.Threading.CancellationToken)">
+            <summary>
+            Read the binary representation into a <paramref name="returnType" />.
+            The Stream will be read to completion.
+            </summary><param name="stream">The <see cref="T:System.IO.Stream" /> to read from.</param><param name="returnType">The type of the object to convert to and return.</param><param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> to use during deserialization.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="stream" /> or <paramref name="returnType" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.DeserializeAsync(System.IO.Stream,System.Type,System.Threading.CancellationToken)">
+            <summary>
+            Read the binary representation into a <paramref name="returnType" />.
+            The Stream will be read to completion.
+            </summary><param name="stream">The <see cref="T:System.IO.Stream" /> to read from.</param><param name="returnType">The type of the object to convert to and return.</param><param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> to use during deserialization.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="stream" /> or <paramref name="returnType" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.Serialize(System.IO.Stream,System.Object,System.Type,System.Threading.CancellationToken)">
+            <summary>
+            Convert the provided value to it's binary representation and write it to <see cref="T:System.IO.Stream" />.
+            </summary><param name="stream">The <see cref="T:System.IO.Stream" /> to write to.</param><param name="value">The value to convert.</param><param name="inputType">The type of the <paramref name="value" /> to convert.</param><param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> to use during serialization.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="stream" /> or <paramref name="inputType" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.SerializeAsync(System.IO.Stream,System.Object,System.Type,System.Threading.CancellationToken)">
+            <summary>
+            Convert the provided value to it's binary representation and write it to <see cref="T:System.IO.Stream" />.
+            </summary><param name="stream">The <see cref="T:System.IO.Stream" /> to write to.</param><param name="value">The value to convert.</param><param name="inputType">The type of the <paramref name="value" /> to convert.</param><param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> to use during serialization.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="stream" /> or <paramref name="inputType" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Serialization.NewtonsoftJsonObjectSerializer.Azure#Core#Serialization#IMemberNameConverter#ConvertMemberName(System.Reflection.MemberInfo)">
+            <summary>
+            Converts a <see cref="T:System.Reflection.MemberInfo" /> to a serializable member name.
+            </summary><param name="member">The <see cref="T:System.Reflection.MemberInfo" /> to convert to a serializable member name.</param><returns>The serializable member name, or null if the member is not defined or ignored by the serializer.</returns><exception cref="T:System.ArgumentNullException"><paramref name="member" /> is null.</exception>
+        </member>
+        <member name="T:Azure.Core.Argument">
+            <summary>
+            Argument validation.
+            </summary>
+            <remarks>
+              <para>This class should be shared via source using Azure.Core.props and contain only common argument validation.
+                It is declared partial so that you can use the same familiar class name but extend it with project-specific validation.
+                To extend the functionality of this class, just declare your own partial <see cref="T:Azure.Core.Argument" /> class with project-specific methods.
+              </para>
+              <para>
+                Be sure to document exceptions thrown by these methods on your public methods.
+              </para>
+            </remarks>
+        </member>
+        <member name="M:Azure.Core.Argument.AssertNotNull``1(``0,System.String)">
+            <summary>
+            Throws if <paramref name="value" /> is null.
+            </summary>
+            <param name="value">The value to validate.</param>
+            <param name="name">The name of the parameter.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Argument.AssertNotNull``1(System.Nullable{``0},System.String)">
+            <summary>
+            Throws if <paramref name="value" /> has not been initialized.
+            </summary>
+            <param name="value">The value to validate.</param>
+            <param name="name">The name of the parameter.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value" /> has not been initialized.</exception>
+        </member>
+        <member name="M:Azure.Core.Argument.AssertNotNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+            Throws if <paramref name="value" /> is null or an empty collection.
+            </summary>
+            <param name="value">The value to validate.</param>
+            <param name="name">The name of the parameter.</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value" /> is an empty collection.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Argument.AssertNotNullOrEmpty(System.String,System.String)">
+            <summary>
+            Throws if <paramref name="value" /> is null or an empty string.
+            </summary>
+            <param name="value">The value to validate.</param>
+            <param name="name">The name of the parameter.</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value" /> is an empty string.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Argument.AssertNotNullOrWhiteSpace(System.String,System.String)">
+            <summary>
+            Throws if <paramref name="value" /> is null, an empty string, or consists only of white-space characters.
+            </summary>
+            <param name="value">The value to validate.</param>
+            <param name="name">The name of the parameter.</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value" /> is an empty string or consists only of white-space characters.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="value" /> is null.</exception>
+        </member>
+        <member name="M:Azure.Core.Argument.AssertNotDefault``1(``0@,System.String)">
+            <summary>
+            Throws if <paramref name="value" /> is the default value for type <typeparamref name="T" />.
+            </summary>
+            <typeparam name="T">The type of structure to validate which implements <see cref="T:System.IEquatable`1" />.</typeparam>
+            <param name="value">The value to validate.</param>
+            <param name="name">The name of the parameter.</param>
+            <exception cref="T:System.ArgumentException"><paramref name="value" /> is the default value for type <typeparamref name="T" />.</exception>
+        </member>
+        <member name="M:Azure.Core.Argument.AssertInRange``1(``0,``0,``0,System.String)">
+            <summary>
+            Throws if <paramref name="value" /> is less than the <paramref name="minimum" /> or greater than the <paramref name="maximum" />.
+            </summary>
+            <typeparam name="T">The type of to validate which implements <see cref="T:System.IComparable`1" />.</typeparam>
+            <param name="value">The value to validate.</param>
+            <param name="minimum">The minimum value to compare.</param>
+            <param name="maximum">The maximum value to compare.</param>
+            <param name="name">The name of the parameter.</param>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
+            <summary>Specifies that null is allowed as an input even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DisallowNullAttribute">
+            <summary>Specifies that null is disallowed as an input even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullAttribute">
+            <summary>Specifies that an output may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullAttribute">
+            <summary>Specifies that an output will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue" />, the parameter may be null even if the corresponding type disallows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter may be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.MaybeNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute">
+            <summary>Specifies that when a method returns <see cref="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue" />, the parameter will not be null even if the corresponding type allows it.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified return value condition.</summary>
+            <param name="returnValue">
+            The return value condition. If the method returns this value, the associated parameter will not be null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullWhenAttribute.ReturnValue">
+            <summary>Gets the return value condition.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute">
+            <summary>Specifies that the output will be non-null if the named parameter is non-null.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.#ctor(System.String)">
+            <summary>Initializes the attribute with the associated parameter name.</summary>
+            <param name="parameterName">
+            The associated parameter name.  The output will be non-null if the argument to the parameter specified is non-null.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.NotNullIfNotNullAttribute.ParameterName">
+            <summary>Gets the associated parameter name.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnAttribute">
+            <summary>Applied to a method that will never return under any circumstance.</summary>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute">
+            <summary>Specifies that the method will not return if the associated Boolean parameter is passed the specified value.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.#ctor(System.Boolean)">
+            <summary>Initializes the attribute with the specified parameter value.</summary>
+            <param name="parameterValue">
+            The condition parameter value. Code after the method will be considered unreachable by diagnostics if the argument to
+            the associated parameter matches this value.
+            </param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.DoesNotReturnIfAttribute.ParameterValue">
+            <summary>Gets the condition parameter value.</summary>
+        </member>
+    </members>
+</doc>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -242,145 +243,107 @@ namespace Program.Controllers
         {
             if (ModelState.IsValid)
             {
-                string error = string.Empty;
-                ThanhVien thanhVien = null;
-                TaiKhoan taiKhoan = null;
-                ThanhVienDAO thanhVienDAO = new ThanhVienDAO();
-                TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
                 if (string.IsNullOrEmpty(email))
                 {
+                    ThanhVien thanhVien = null;
+                    TaiKhoan taiKhoan = null;
+                    ThanhVienDAO thanhVienDAO = new ThanhVienDAO();
+                    TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
                     thanhVien = thanhVienDAO.getThanhVienByCode(code);
-                    if (thanhVien != null)
+                    if (thanhVien == null)
                     {
-                        if (!string.IsNullOrEmpty(thanhVien.TV_Email))
-                        {
-                            taiKhoan = taiKhoanDAO.GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
-                            if (taiKhoan == null)
-                                error = "Thành viên có mã " + code + " chưa có tài khoản trong hệ thống.";
-                            else
-                            {
-                                email = thanhVien.TV_Email;
-                            }
-                        }
-                        else
-                            error = "Thành viên có mã " + code + " không có email trong hệ thống.";
+                        ViewBag.error = "Không tồn tại thành viên có mã " + code + " trong hệ thống.";
+                        return View();
                     }
-                    else
-                        error = "Không tồn tại thành viên có mã " + code + " trong hệ thống.";
+                    if (string.IsNullOrEmpty(thanhVien.TV_Email))
+                    {
+                        ViewBag.error = "Thành viên có mã " + code + " không có email trong hệ thống.";
+                        return View();
+                    }
+                    taiKhoan = taiKhoanDAO.GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
+                    if (taiKhoan == null)
+                    {
+                        ViewBag.error = "Thành viên có mã " + code + " chưa có tài khoản trong hệ thống.";
+                        return View();
+                    }
+                    email = thanhVien.TV_Email;
                 }
-                if (!string.IsNullOrEmpty(email))
-                    return RedirectToAction("Authentication", new { email = email });
-                ViewBag.error = error;
+                 return RedirectToAction("Authentication", new { email = email });
+
             } 
             return View();
         }
         public ActionResult Authentication(string email)
         {
-            if (!string.IsNullOrEmpty(email))
-            {
-                if (ModelState.IsValid)
-                {
-                    TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
-                    ThanhVien thanhVien = new ThanhVienDAO().getThanhVienByEmail(email);
-                    if (thanhVien != null)
-                    {
-                        TaiKhoan taiKhoan = taiKhoanDAO.GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
-                        if (taiKhoan != null)
-                        {
-                            string maXacThuc = taoMaXacThuc();
-                            DateTime now = DateTime.Now;
-                            if (sendEmail("~/Content/forms/SendEmailForgetPassword.html", thanhVien.TV_Email, "Xác nhận đặt lại mật khẩu",
-                                new List<string> { "{{email}}", "{{name}}", "{{maXacThuc}}", "{{time}}", "{{companyName}}" },
-                                new List<string> { thanhVien.TV_Email, thanhVien.TV_HoVaTen, maXacThuc, now.ToString(), ConfigurationManager.AppSettings["FromEmailDisplayName"].ToString()
-                            }))
-                            {
-                                taiKhoan.TK_MaXacThuc = maXacThuc;
-                                taiKhoan.TK_ThoiGianTaoMa = now;
-                                taiKhoanDAO.updateTaiKhoan(taiKhoan);
-                                ViewBag.email = thanhVien.TV_Email;
-                                return View();
-                            }
-                            else
-                                ViewBag.error = "Có lỗi xảy ra, vui lòng thử lại sau";
-                        }
-                        else
-                            ViewBag.error = "Thành viên có email " + email + " chưa có tài khoản trong hệ thống.";
-                    }
-                    else
-                        ViewBag.error = "Thành viên có email " + email + " chưa có tài khoản trong hệ thống.";
-                }
-            }
-            else
+            if (string.IsNullOrEmpty(email))
                 return RedirectToAction("NotFound", "Error");
+            if (ModelState.IsValid)
+            {
+                TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
+                ThanhVien thanhVien = new ThanhVienDAO().getThanhVienByEmail(email);
+                if (thanhVien == null)
+                {
+                    ViewBag.error = "Không tồn tại thành viên có email " + email + "trong hệ thống.";
+                    return View("ForgetPassword");
+                }   
+                TaiKhoan taiKhoan = taiKhoanDAO.GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
+                if (taiKhoan == null)
+                {
+                    ViewBag.error = "Thành viên có email " + email + " chưa có tài khoản trong hệ thống.";
+                    return View("ForgetPassword");
+                }
+                string maXacThuc = taoMaXacThuc();
+                DateTime now = DateTime.Now;
+                if (sendEmail("~/Content/forms/SendEmailForgetPassword.html", thanhVien.TV_Email, "Xác nhận đặt lại mật khẩu",
+                    new List<string> { "{{email}}", "{{name}}", "{{maXacThuc}}", "{{time}}", "{{companyName}}" },
+                    new List<string> { thanhVien.TV_Email, thanhVien.TV_HoVaTen, maXacThuc, now.ToString(), ConfigurationManager.AppSettings["FromEmailDisplayName"].ToString()
+                }))
+                {
+                    taiKhoan.TK_MaXacThuc = maXacThuc;
+                    taiKhoan.TK_ThoiGianTaoMa = now;
+                    taiKhoanDAO.updateTaiKhoan(taiKhoan);
+                    ViewBag.email = thanhVien.TV_Email;
+                    return View();
+                }
+                else
+                    ViewBag.error = "Có lỗi xảy ra, vui lòng thử lại sau";
+            }
             return View("ForgetPassword");
         }
 
         public JsonResult checkNewPassword(string email, string newPassword)
         {
-            string error = null;
-            string success = null;
-            if (!string.IsNullOrEmpty(email))
-            {
-                ThanhVien thanhVien = new ThanhVienDAO().getThanhVienByEmail(email);
-                if (thanhVien != null)
-                {
-                    TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
-                    TaiKhoan taiKhoan = taiKhoanDAO.GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
-                    if (taiKhoan != null)
-                    {
-                        if (!BCrypt.Net.BCrypt.Verify(newPassword, taiKhoan.TK_MatKhau))
-                        {
-                            taiKhoan.TK_MatKhau = BCrypt.Net.BCrypt.HashPassword(newPassword);
-                            if (taiKhoanDAO.updateTaiKhoan(taiKhoan))
-                            {
-                                success = "Đổi mật khẩu thành công.";
-                            }
-                            else
-                                error = "Đổi mật khẩu thất bại.";
-                        }
-                        else
-                            error = "Mật khẩu mới không được trùng mật khẩu cũ.";
-                    }
-                    else
-                        error = "Có lỗi xảy ra, vui lòng thử lại sau.";
-                }
-                else
-                    error = "Có lỗi xảy ra, vui lòng thử lại sau.";
-            }
-            else
-                error = "Có lỗi xảy ra, vui lòng thử lại sau.";
-            return Json(new { error = error, success = success });
+            if (string.IsNullOrEmpty(email))
+                return Json(new { error = "Có lỗi xảy ra, vui lòng thử lại sau." });
+            ThanhVien thanhVien = new ThanhVienDAO().getThanhVienByEmail(email);
+            if (thanhVien == null)
+                return Json(new { error = "Có lỗi xảy ra, vui lòng thử lại sau." });
+            TaiKhoanDAO taiKhoanDAO = new TaiKhoanDAO();
+            TaiKhoan taiKhoan = taiKhoanDAO.GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
+            if (taiKhoan == null)
+                return Json(new { error = "Có lỗi xảy ra, vui lòng thử lại sau." });
+            if (BCrypt.Net.BCrypt.Verify(newPassword, taiKhoan.TK_MatKhau))
+                return Json(new { error = "Mật khẩu mới không được trùng mật khẩu cũ." });
+            taiKhoan.TK_MatKhau = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            if (!taiKhoanDAO.updateTaiKhoan(taiKhoan))
+                return Json(new { error = "Đổi mật khẩu thất bại." });
+            return Json(new { success = "Đổi mật khẩu thành công." });
         }    
         public JsonResult checkMaXacThuc(string maXacThuc, string email)
         {
-            string error = null;
-            string success = null;
-            if (!string.IsNullOrEmpty(email))
-            {
-                ThanhVien thanhVien = new ThanhVienDAO().getThanhVienByEmail(email);
-                if (thanhVien != null)
-                {
-                    TaiKhoan taiKhoan = new TaiKhoanDAO().GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
-                    if (taiKhoan != null)
-                    {
-                        if (taiKhoan.TK_MaXacThuc != maXacThuc)
-                            error = "Mã xác thực không chính xác.";
-                        else if (DateTime.Now > taiKhoan.TK_ThoiGianTaoMa.Value.AddSeconds(300))
-                            error = "Mã xác thực đã quá thời gian giới hạn.";
-                        else
-                        {
-                            success = "Mã xác thực chính xác, vui lòng đổi mật khẩu mới.";
-                        }
-                    }
-                    else
-                        error = "Có lỗi xảy ra, vui lòng thử lại sau.";
-                }
-                else
-                    error = "Có lỗi xảy ra, vui lòng thử lại sau.";
-            }
-            else
-                error = "Có lỗi xảy ra, vui lòng thử lại sau.";
-            return Json(new { error = error, success = success});
+            if (string.IsNullOrEmpty(email))
+                return Json(new { error = "Có lỗi xảy ra, vui lòng thử lại sau." });
+            ThanhVien thanhVien = new ThanhVienDAO().getThanhVienByEmail(email);
+            if (thanhVien == null)
+                return Json(new { error = "Có lỗi xảy ra, vui lòng thử lại sau." });
+            TaiKhoan taiKhoan = new TaiKhoanDAO().GetTaiKhoanByMaThanhVien(thanhVien.TV_Ma);
+            if (taiKhoan == null)
+                return Json(new { error = "Có lỗi xảy ra, vui lòng thử lại sau." });
+            if (taiKhoan.TK_MaXacThuc != maXacThuc)
+                return Json(new { error = "Mã xác thực không chính xác." });
+            if (DateTime.Now > taiKhoan.TK_ThoiGianTaoMa.Value.AddSeconds(300))
+                return Json(new { error = "Mã xác thực đã quá thời gian giới hạn." });
+            return Json(new { success = "Mã xác thực chính xác, vui lòng đổi mật khẩu mới." });
         }
         public bool sendEmail(string pathForm, string toEmail, string title, List<string> keys, List<string> values)
         {

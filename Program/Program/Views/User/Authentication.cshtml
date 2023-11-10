@@ -8,6 +8,7 @@
         new LocationPage(DefinePage.home,
             new LocationPage(DefinePage.user,
                 new LocationPage(DefinePage.user_ForgetPassword)));
+    bool checkAuth = false;
 }
 <link href="~/Content/style/userstyle.css" rel="stylesheet" />
 <section class="vh-100">
@@ -49,7 +50,7 @@
 
                                     <div class="d-flex mx-4 mb-3 mb-lg-4 flex-wrap" style="justify-content: space-evenly;">
                                         <a href="#">
-                                            <button type="button" class="btn btn-primary btn-lg btn-submit" style="background-color:#0D6EFD; border: 0;">
+                                            <button type="button" class="btn btn-primary btn-lg btn-submit-maXacThuc" style="background-color:#0D6EFD; border: 0;">
                                                 Send
                                             </button>
                                         </a>
@@ -86,7 +87,7 @@
 
                                     <div class="d-flex mx-4 mb-3 mb-lg-4 flex-wrap" style="justify-content: space-evenly;">
                                         <a href="#">
-                                            <button type="button" class="btn btn-primary btn-lg btn-submit" style="background-color:#0D6EFD; border: 0;">
+                                            <button type="button" class="btn btn-primary btn-lg btn-submit-new-password" style="background-color:#0D6EFD; border: 0;">
                                                 Send
                                             </button>
                                         </a>
@@ -113,6 +114,8 @@
 </section>
 
 <script>
+    var error = $('#error');
+    var success = $('#success');
     $(document).ready(function () {
         $('#ma-xac-thuc').keypress(function () {
             $('#errorMaXacThuc').text("")
@@ -129,9 +132,10 @@
             $('#errorNewRepeatPassword').text("")
         })
     });
-    $('.btn-submit')[0].click(function () {
+    $('.btn-submit-maXacThuc').click(function () {
         var maXacThuc = $('#ma-xac-thuc').val();
         var errorMaXacThuc = $('#errorMaXacThuc');
+        errorMaXacThuc.text('');
         if (maXacThuc.length != 6) {
             errorMaXacThuc.text('Mã xác thực phải có đủ 6 ký tự')
             return;
@@ -147,31 +151,38 @@
         };
         toUrlAjax("POST", data, "/User/checkMaXacThuc",
             function (data) {
-                var error = data["error"];
-                var success = data["success"];
-                if (success) {
+                var errorMessage = data["error"];
+                var successMessage = data["success"];
+                if (successMessage) {
                     $('.title').text("Change New Password");
                     $('#form').addClass('d-none');
                     $('#form-2').removeClass('d-none');
-                    $('#error').addClass('d-none');
-                    $('#success').removeClass('d-none');
-                    $('#success').text(success);
+                    error.addClass('d-none');
+                    success.removeClass('d-none');
+                    success.text(successMessage);
+                    @checkAuth = true;
                 } else {
-                    $('#error').removeClass('d-none');
-                    $('#error').text(error + "");
-                    $('#success').addClass('d-none');
+                    error.removeClass('d-none');
+                    error.text(errorMessage + "");
+                    success.addClass('d-none');
                 }
             },
             function (data) {
-                $('#success').addClass('d-none');
-                $('#error').removeClass('d-none');
-                $('#error').text(
-                    data + ""
-                );
+                success.addClass('d-none');
+                error.removeClass('d-none');
+                error.text(data + "");
             }
         );
     })
-    $('.btn-submit')[1].click(function () {
+    $('.btn-submit-new-password').click(function () {
+
+        let checkAuth = @(checkAuth == true ? 1 : 0);
+
+        if (!checkAuth) {
+            error.removeClass('d-none');
+            error.text("Bạn phải nhập mã xác thực đúng trước.");
+            return;
+        }
 
         let newPassword = $('#newPassword').val();
         let repeatNewPassword = $('#repeatNewPassword').val();
@@ -190,26 +201,27 @@
             errorRepeatNewPassword.text("Mật khẩu lặp lại phải trùng khớp mật khẩu mới");
             return;
         }
-
-        toUrlAjax("POST", data, "/User/checkMaXacThuc",
+        var data = {
+            email: "@email",
+            newPassword: newPassword
+        }
+        toUrlAjax("POST", data, "/User/checkNewPassword",
             function (data) {
-                var error = data["error"];
-                var success = data["success"];
-                if (success) {
-                    alert("Thông báo:\n" + success);
+                var errorMessage = data["error"];
+                var successMessage = data["success"];
+                if (successMessage) {
+                    alert("Thông báo:\n" + successMessage);
                     window.location = "/Home";
                 } else {
-                    $('#error').removeClass('d-none');
-                    $('#error').text(error + "");
-                    $('#success').addClass('d-none');
+                    error.removeClass('d-none');
+                    error.text(errorMessage + "");
+                    success.addClass('d-none');
                 }
             },
             function (data) {
-                $('#success').addClass('d-none');
-                $('#error').removeClass('d-none');
-                $('#error').text(
-                    data + ""
-                );
+                success.addClass('d-none');
+                error.removeClass('d-none');
+                error.text(data + "");
             }
         );
     })

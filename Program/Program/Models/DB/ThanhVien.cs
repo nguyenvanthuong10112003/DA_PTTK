@@ -24,6 +24,22 @@ namespace Program.Models.DB
             ViPhams = new HashSet<ViPham>();
         }
 
+        public static List<string> getNameItems()
+        {
+            return new List<string>()
+            { 
+                "TV_Ma",
+                "TV_HoVaTen",
+                "TV_GioiTinh",
+                "TV_NgaySinh",
+                "TV_Email",
+                "TV_SoDienThoai",
+                "TV_DiaChi",
+                "TV_SoCCCD",
+                "TV_PhuCap"
+            };
+        }
+
         [Key]
         [StringLength(10)]
         public string TV_Ma { get; set; }
