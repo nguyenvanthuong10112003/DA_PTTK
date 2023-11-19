@@ -1,4 +1,4 @@
-# DA_PTTK
+# Hướng Dẫn
 Hướng dẫn run code
 - Import database trong Program/Quan_Li_Nhan_Vien.bacpac\
 - Mở project bằng cách mở Program/Program.sln
