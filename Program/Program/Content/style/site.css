@@ -102,21 +102,49 @@ p {
     }
 }
 
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 !important;
+        margin-bottom: 20px;
+    }
+} 
+
+#sidebar-user {
+    border-radius: 30px;
+    display: none;
+}
+
+#sidebar-user a {
+    background-color: rgba(33,37,41,1);
+    color: white;
+}
+
+#sidebar-user ul {
+    background-color: white;
+    padding: 0;
+    border: 1px solid rgba(33,37,41,1);
+}
+
+.nav-content ul li a {
+    padding: 10px 30px;
+}
+
+#sidebar-user ul li a {
+    background-color: rgba(33,37,41,1);
+    color: white;
+}
+
+#sidebar-user ul li a i {
+    font-size: 14px;
+}
+
+#sidebar-user ul li a:hover {
+    background-color: white;
+    color: rgba(33,37,41,1);
+}
+
 #sidebar-nav .nav-item:first-child .nav-link:first-child:hover {
     opacity: 0.8;
-}
-
-#sidebar-nav .nav-item:first-child .nav-link:last-child i {
-    color: #000000;
-}
-
-#sidebar-nav .nav-item:first-child .nav-link:last-child:hover {
-    background-color: red;
-    color: #ffffff !important;
-}
-
-#sidebar-nav .nav-item:first-child .nav-link:last-child:hover i {
-    color: #ffffff;
 }
 
 .card-header {
@@ -272,3 +300,205 @@ p {
 .btns {
     margin-top: 10px;
 }
+
+#root {
+    background-color: rgba(0,0,0,0.1);
+}
+
+#main {
+    padding: 10px;
+    color: rgba(33,37,41,1);
+    background-color: white;
+    margin: 10px auto;
+}
+
+#the-lap {
+    padding-top: 74px;
+}
+
+input:disabled {
+    opacity: 0.6 !important;
+}
+
+input, .input-password, .input-password-repeat, .input-old-password, .input-new-password, .input-repeat-new-password {
+    border: 1px solid #c1bbbb !important;
+}
+
+.btn-xuat-file {
+    padding: 0 10px !important;
+}
+
+.page-item {
+    border: 1px solid #c1bbbb;
+}
+
+.list-ca {
+}
+
+.title-ca {
+    color: white;
+}
+
+.calendar {
+    border: 1px solid rgba(0,0,0,0.05);
+}
+
+.ca-item {
+    list-style: none;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    color: white !important;
+    background-color: #6D4C41;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btn-chi-xem {
+    background-color: white !important;
+    border: -2px solid #007bff !important;
+    cursor: default !important;
+    color: #007bff !important;
+    box-sizing: border-box
+}
+
+.funs-item {
+    list-style: none;
+    margin-right: 5px;
+}
+
+.funs-item a {
+    font-weight: 600;
+}
+
+.funs-item a i {
+    margin-right: 5px;
+}
+
+.list-ca-funs {
+    display: flex;
+    flex-direction: row;
+}
+
+.ca-item ul {
+    padding: 0;
+}
+
+.ca--trang-thai {
+    text-align: right;
+    font-size: 12px;
+    font-family: Arial;
+    margin-top: 5px;
+    margin-bottom: -5px;
+}
+
+.ca--thoi-gian {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.card-xin-nghi {
+    background-color: #6D4C41;
+}
+
+.xin-nghi-item {
+    padding: 5px !important;
+    list-style: none;
+}
+
+@media (max-width: 768px) {
+    .xin-nghi-item {
+        padding: 5px 0 !important;
+    }
+}
+
+.list-xin-nghi {
+
+}
+
+.xin-nghi {
+    max-width: 100% !important;
+}
+
+.title-date {
+    color: white;
+}
+
+.xin-nghi-item .me-3 h6 {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.xin-nghi-item .me-3 span {
+    font-size: 14px;
+}
+
+.person-accept {
+    color: #007BFF;
+    text-decoration: underline;
+}
+
+.info .content-info ul > li {
+    list-style: none;
+}
+
+.info .content-info ul > li:last-child {
+    margin-bottom: 5px;
+}
+
+.info .content-info ul {
+    margin: 0;
+    padding: 0;
+    padding-left: 20px;
+}
+
+.btn {
+    border-radius: 10px;
+}
+
+#sidebar-user {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #sidebar-user {
+        display: flex;
+    }
+}
+
+#part-add {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+    z-index: 5;
+    padding: 20px;
+}
+
+#part-add #content-add {
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    position: relative;
+    border-radius: 0;
+    max-width: 1200px;
+}
+
+#part-add #content-add .btn-close-form {
+    border-radius: 0;
+}
+
+.btn-close-form:hover {
+    background-color: #FF0000 !important;
+    color: white !important;
+}
+
+.card-tools {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+ 

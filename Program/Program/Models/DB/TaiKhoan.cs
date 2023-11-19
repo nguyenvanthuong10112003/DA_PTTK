@@ -33,5 +33,16 @@ namespace Program.Models.DB
         public virtual Quyen Quyen { get; set; }
 
         public virtual ThanhVien ThanhVien { get; set; }
+        public static List<string> getNameItems()
+        {
+            return new List<string>()
+            {
+                "TK_TenDangNhap",
+                "TV_BiKhoa",
+                "TV_ThoiGianMoKhoa",
+                "TV_QuyenQuanLy",
+                "TV_QuyenAdmin"
+            };
+        }
     }
 }

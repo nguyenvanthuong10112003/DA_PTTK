@@ -6,173 +6,92 @@
 @using Program.Define;
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
-
     <ul class="sidebar-nav" id="sidebar-nav">
-        <li class="nav-item d-bl" style="display: none; border: 1px solid rgba(33,37,41,1); border-radius: 10px; padding: 5px">
-            <a class="nav-link " href="~/User/Profile" style="background-color: rgba(33,37,41,1); color: #ffffff; margin-bottom: 2px">
-                <i class="fa-solid fa-user" style="color: #ffffff"></i>
-                <span>@userSession.username</span>
-            </a>
-            <a class="nav-link " href="~/User/Logout" style="color: black">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Logout</span>
-            </a>
-        </li>
-
         <li class="nav-item">
-            <a class="nav-link " href="#">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
+            <a class="nav-link collapsed" href="/Home/Index">
+                <i class="fa-solid fa-house"></i>
+                <span>Trang chủ</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
+        <li class="nav-item" id="sidebar-user" style="background-color: rgba(33,37,41,1); color: #ffffff; margin-bottom: 2px">
+            <a class="nav-link collapsed open-list" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="fa-solid fa-user" style="color: #ffffff"></i>
+                <span>@userSession.username</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="~/User/Profile">
+                        <i class="fa-solid fa-id-card"></i><span>My profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-shuffle"></i><span>Đổi mật khẩu</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-right-from-bracket"></i><span>Đăng xuất</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <a class="nav-link collapsed open-list" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span>Quản lý</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul class="nav-content collapse" data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Phòng ban</span>
+                        <i class="fa-solid fa-users"></i><span>Nhân sự</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Bộ phận</span>
+                        <i class="fa-solid fa-user-lock"></i><span>Tài khoản</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Thành viên</span>
+                        <i class="fa-solid fa-user-check"></i><span>Thông tin chấm công</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Công việc</span>
+                        <i class="fa-solid fa-person-harassing"></i><span>Thông tin khen thưởng kỷ luật</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Vi phạm</span>
+                        <i class="fa-solid fa-rectangle-list"></i><span>Ca làm</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Khen thưởng</span>
+                        <i class="fa-solid fa-building"></i><span>Phòng ban</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Lương</span>
+                        <i class="fa-solid fa-gears"></i><span>Bộ phận</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
-                        <i class="bi bi-circle"></i><span>Hóa đơn thanh toán</span>
-                    </a>
-                </li>
-            </ul>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Form Elements</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Form Layouts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Form Editors</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Form Validation</span>
+                        <i class="fa-solid fa-user-pen"></i><span>Lịch sử thao tác</span>
                     </a>
                 </li>
             </ul>
-        </li><!-- End Forms Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>General Tables</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Data Tables</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Tables Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Chart.js</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>ApexCharts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>ECharts</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Charts Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Remix Icons</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="bi bi-circle"></i><span>Boxicons</span>
-                    </a>
-                </li>
-            </ul>
-        </li><!-- End Icons Nav -->
-
-        <li class="nav-heading">Pages</li>
+        </li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="#">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
+                <i class="fa-solid fa-list-check"></i>
+                <span>Chấm công</span>
             </a>
-        </li><!-- End Profile Page Nav -->
+        </li><!-- End F.A.Q Page Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="#">
@@ -187,35 +106,14 @@
                 <span>Contact</span>
             </a>
         </li><!-- End Contact Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-card-list"></i>
-                <span>Register</span>
-            </a>
-        </li><!-- End Register Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
-        </li><!-- End Login Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-dash-circle"></i>
-                <span>Error 404</span>
-            </a>
-        </li><!-- End Error 404 Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#">
-                <i class="bi bi-file-earmark"></i>
-                <span>Blank</span>
-            </a>
-        </li><!-- End Blank Page Nav -->
-
     </ul>
 
 </aside><!-- End Sidebar-->
+
+<script>
+    $(document).ready(function () {
+        $('.open-list').click(function () {
+            $(this).parent().children('.nav-content').slideToggle();
+        })
+    })
+</script>

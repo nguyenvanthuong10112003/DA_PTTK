@@ -72,5 +72,9 @@ namespace Program.Models.DAO
             }
             return false;
         }
+        public List<TaiKhoan> getList()
+        {
+            return context.TaiKhoans.ToList();
+        }
     }
 }

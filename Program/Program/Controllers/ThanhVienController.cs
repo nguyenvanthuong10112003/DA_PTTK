@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using Program.Models;
 using Program.Models.DAO;
 using Program.Models.DB;
@@ -17,14 +18,14 @@ namespace Program.Controllers
             return View();
         }
 
-        public JsonResult GetAll(int page = 1, int size = 1)
+        public string GetAll(int page = 1, int size = 1)
         {
             List<ThanhVien> list = new DBModel<ThanhVien>().getDataForPage(Define.DefineProcSQL.getThanhViensByPage, page, size);
-            return Json(new
+            return JsonConvert.SerializeObject(new
             {
                 data = list,
                 name = ThanhVien.getNameItems()
-            }, JsonRequestBehavior.AllowGet);
+            });
         }
 
         public ActionResult Profile(string ma) {

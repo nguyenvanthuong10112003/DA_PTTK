@@ -171,6 +171,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CaLamController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManagementController.cs" />
@@ -506,6 +507,9 @@
     <Content Include="Content\bootstrap\bootstrap.min.css" />
     <Content Include="Content\bootstrap\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap\bootstrap.rtl.min.css" />
+    <Content Include="Content\caulendar\main.js" />
+    <Content Include="Content\caulendar\popper.js" />
+    <Content Include="Content\caulendar\style.css" />
     <Content Include="Content\fontawesome-free-6.4.2-web\css\all.css" />
     <Content Include="Content\fontawesome-free-6.4.2-web\css\all.min.css" />
     <Content Include="Content\fontawesome-free-6.4.2-web\css\brands.css" />
@@ -2580,9 +2584,11 @@
     <Content Include="Content\style\userstyle.css" />
     <Content Include="Content\style\profile.css" />
     <Content Include="Content\style\site.css" />
+    <Content Include="icons\excel.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\bootstrap\Site.css" />
+    <Content Include="imgs\avatar.png" />
     <Content Include="imgs\img1.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -2772,6 +2778,9 @@
     <Content Include="Views\Management\Index.cshtml" />
     <Content Include="Views\ThanhVien\Profile.cshtml" />
     <Content Include="Views\ThanhVien\Index.cshtml" />
+    <Content Include="Views\CaLam\LichLamViec.cshtml" />
+    <Content Include="Views\CaLam\Index.cshtml" />
+    <Content Include="Views\Management\TaiKhoan.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,4 +1,4 @@
-﻿@using Program.Define;
+﻿﻿@using Program.Define;
 @using Program.Models;
 @using Program.Models.DB;
 @using System.Collections.Generic;
@@ -19,6 +19,7 @@
         max-width: 100% !important;
         padding: 0 10px 10px;
     }
+
     .wide {
         width: 100% !important;
     }
@@ -51,7 +52,7 @@
     }
     var page = 1;
     var pageSize = 10;
-    var countData = @count;
+    var countData = 1000;
     var datas = [{}];
     var nameItems = [];
     var names = [ "Mã", "Tên", "Giới tính", "Ngày sinh", "Email", "Số điện thoại", "Địa chỉ", "CCCD", "Phụ cấp" ];
@@ -81,20 +82,6 @@
             </div>
             <div class="content">
                 <div class="container-fluid" style="padding: 0">
-                    <div class="card card-default" id="content-add">
-                        <div class="card-header">
-                            <h3 class="card-title">Thêm @name</h3>
-                            <div class="card-tools">
-                                <button type="button" class="btn btn-tool btn-slide-form" data-card-widget="collapse">
-                                    <i class="fas fa-minus"></i>
-                                </button>
-                                <button type="button" class="btn btn-tool btn-close-form" data-card-widget="remove">
-                                    <i class="fas fa-times"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="card card-default" id="content-search">
                         <div class="card-header">
                             <h3 class="card-title">Tìm kiếm @name</h3>
@@ -243,14 +230,14 @@
                         </div>
 
                         <!-- /.card-body -->
-                        <div class="card-footer clearfix">
+                        <div class="card-footer clearfix p-0" style="padding-top: 10px !important">
                             <ul class="pagination pagination-sm m-0 float-right">
 
                                 <li class="page-item" onclick="toPage(1)">
                                     <a class="page-link" href="#!"><< First</a>
                                 </li>
                                 ${
-                                    [""].reduce(function (result) 
+                                    [""].reduce(function (result)
                                     {
 
                                         let arr = [];
@@ -280,29 +267,45 @@
                                             result += `<li class="page-item">
                                                 <a class="page-link" style="color: gray" href="#!">...</a>
                                             </li>`
-                                            
+
                                         result += arr.reduce(function (result, item) {
                                             return result + `
                                                 <li class="page-item" onclick="toPage(${item})">
-                                                    <a class="page-link ${item == page ? "bg-primary clr-white" : ""}" href="#!">${item}</a>
+                                                    <a class="page-link ${item == page ? "active" : ""}" href="#!">${item}</a>
                                                 </li>`
-                                        }, "") 
+                                        }, "")
 
-                                        if (arr[arr.length - 1] < parseInt(countData / pageSize))  
+                                        if (arr[arr.length - 1] < parseInt(countData / pageSize))
                                             result += `<li class="page-item" >
                                                 <a class="page-link" style="color: gray" href="#!">...</a>
                                             </li >`
                                         return result;
-                                            
+
                                     }, "")
                                 }
                                 <li class="page-item" onclick="toPage(${parseInt(countData / pageSize)})">
                                     <a class="page-link" href="#!">End >></a>
                                 </li>
                             </ul>
+                            <button type="button" class="btn btn-success btn-xuat-file float-end">
+                                <span>Xuất file</span>
+                                <img src="/icons/excel.png" alt"icon-excel" style="width: 32px">
+                            </button>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div id="part-add" class="d-none">
+                    <div class="card card-default" id="content-add">
+                        <div>
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool btn-close-form" data-card-widget="remove">
+                                    <i class="fas fa-times" style="font-size: 18px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
             </div>
         `
     }
@@ -313,25 +316,27 @@
             let gioitinh = {};
             html = `
                     <div class="card-body form-input" id="${thaotac}">
-                        <h3 class="card-title">${thaotac == 'edit' ? "Sửa thông tin" : (thaotac == 'add' ? "Thêm @name" : "Tìm kiếm @name")} </h3>
+                        <h3 class="card-title">${thaotac == 'edit' ? "Sửa thông tin" : (thaotac == 'add' ? "Thêm @name" : "Tìm kiếm")} </h3>
                         <form method="GET" action="#" id="form-${id}">
                             <div class="row">
                                 ${
                                 names.reduce(function (result1, item, index) {
-                                    return result1 + `<div class="col-md-4">
+                                    return result1 + `<div class="col-md-6">
                                         <div class="form-group">
                                             <label>${item}</label>
                                             ${
                                             [item].reduce(function () {
                                                 if (nameObj[item].type != "radio") {
-                                                    return `<input type="${nameObj[item].type}" name="${nameObj[item].id}-${thaotac}-${id}" id="${nameObj[item].id}-${thaotac}-${id}" class="form-control" value="${result['"' + nameObj[item].id + '"'] ? (result['"' + nameObj[item].id + '"']).trim() : ""
-                                                } "
-                                                              placeholder="Nhập ${item.toLowerCase()}">`
+                                                    return `<input type="${nameObj[item].type}" name="${nameObj[item].id}-${thaotac}-${id}" id="${nameObj[item].id}-${thaotac}-${id}" class="form-control"
+                                                    value="${result['"' + nameObj[item].id + '"'] ? (result['"' + nameObj[item].id + '"']).trim() : ""
+                                                }" placeholder="Nhập ${item.toLowerCase()}">`
                                                 } else {
-                                                    return `<input type="${nameObj[item].type}" name="${nameObj[item].id}-${thaotac}-${id}" value="nam" id="nam-${nameObj[item].id}-${thaotac}-${id}" ${result['"' + nameObj[item].id + '"'] ? (result['"' + nameObj[item].id + '"']).trim() == 'Nam' ? "checked" : "": ""}>
-                                                    <label for="nam-${thaotac}-${id}">Nam</label>
-                                                    <input type="${nameObj[item].type}" name="${nameObj[item].id}-${thaotac}-${id}" value="nu" id="nu-${nameObj[item].id}-${thaotac}-${id}" ${result['"' + nameObj[item].id + '"'] ? (result['"' + nameObj[item].id + '"']).trim() == 'Nữ' ? "checked" : "" : ""}>
-                                                    <label for="nu-${thaotac}-${id}">Nữ</label>`
+                                                    return `<div>
+                                                        <input type="${nameObj[item].type}" name="${nameObj[item].id}-${thaotac}-${id}" value="nam" id="nam-${nameObj[item].id}-${thaotac}-${id}" ${result['"' + nameObj[item].id + '"'] ? (result['"' + nameObj[item].id + '"']).trim() == 'Nam' ? "checked" : "" : ""}>
+                                                        <label for="nam-${thaotac}-${id}">Nam</label>
+                                                        <input type="${nameObj[item].type}" name="${nameObj[item].id}-${thaotac}-${id}" value="nu" id="nu-${nameObj[item].id}-${thaotac}-${id}" ${result['"' + nameObj[item].id + '"'] ? (result['"' + nameObj[item].id + '"']).trim() == 'Nữ' ? "checked" : "" : ""}>
+                                                        <label for="nu-${thaotac}-${id}">Nữ</label>
+                                                    </div>`
                                                 }
                                             }, "")
                                             }
@@ -369,8 +374,8 @@
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             success: function (result) {
-                datas = result.data;
-                nameItems = result.name;
+                datas = result["data"];
+                nameItems = result["name"];
             },
             error: function (errormessage) {
                 alert("error");
@@ -381,7 +386,6 @@
         root.html(createContent());
         $('#content-add').html($('#content-add').html() + createForm({}, 'add'));
         $('#content-search').html($('#content-search').html() + createForm({}, 'search'));
-        $('#content-add').slideUp(0);
         $('#content-search').slideUp(0);
         $(document).ready(ready);
     }
@@ -401,13 +405,18 @@
             );
         })
         $('.btn-close-form').click(function (e) {
-            upDown($(e.currentTarget).parent().parent().parent());
+            if ($(e.currentTarget).parent().parent().parent().attr('id') == 'content-add') {
+                $('#part-add').addClass('d-none');
+            }
+            else
+                upDown($(e.currentTarget).parent().parent().parent());
         })
         $('.function').click(function (e) {
             if ($(e.currentTarget).attr('class').indexOf('search') != -1)
                 upDown($('#content-search'));
-            else if ($(e.currentTarget).attr('class').indexOf('add') != -1)
-                upDown($('#content-add'));
+            else if ($(e.currentTarget).attr('class').indexOf('add') != -1) {
+                $('#part-add').removeClass('d-none');
+            }
         })
         $('.text-view').click(function () {
             $('.header-view-list').toggleClass('d-none');

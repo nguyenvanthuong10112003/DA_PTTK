@@ -176,19 +176,20 @@ h6 {
 # Sidebar
 --------------------------------------------------------------*/
 .sidebar {
-  position: fixed;
-  top: 60px;
-  left: 0;
-  bottom: 0;
-  width: 300px;
-  z-index: 1002;
-  transition: all 0.3s;
-  padding: 20px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #aab7cf transparent;
-  box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-  background-color: #fff;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    z-index: 1002;
+    transition: all 0.3s;
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #aab7cf transparent;
+    box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.4);
+    background-color: #ffffff;
+    color: white !important;
 }
 
 @media (max-width: 414px) {
@@ -298,7 +299,6 @@ h6 {
 }
 
 .sidebar-nav .nav-content a i {
-  font-size: 6px;
   margin-right: 8px;
   line-height: 0;
   border-radius: 50%;

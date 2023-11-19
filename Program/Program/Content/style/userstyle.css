@@ -16,7 +16,7 @@ li {
 
 #password, #password-repeat, #oldPassword, #newPassword, #repeatNewPassword {
     padding: 0 !important;
-    border: none;
+    border: none !important;
 }
 
 #password:focus, #password-repeat:focus, #oldPassword:focus, #NewPassword:focus, #RepeatNewPassword:focus {

@@ -47,8 +47,11 @@
         {
             @RenderPage("~/Views/Shared/parts/_Sidebar.cshtml")
         }
+        <div id="the-lap">
+
+        </div>
         <!--Content-->
-        <div id="main" class="grid wide" style="padding-top: 74px; color: rgba(33,37,41,1);">
+        <div id="main" class="grid wide">
             @if (ViewBag.pageNow != null)
             {
                 LocationPage page = ViewBag.pageNow;

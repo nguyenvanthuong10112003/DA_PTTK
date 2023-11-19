@@ -15,6 +15,11 @@ namespace Program.Controllers
         {
             return View();
         }
+        public ActionResult TaiKhoan()
+        {
+            ViewBag.countData = new TaiKhoanDAO().getList().Count();
+            return View();
+        }
         public ActionResult ThanhVien() 
         {
             ViewBag.countData = new ThanhVienDAO().getList().Count();
