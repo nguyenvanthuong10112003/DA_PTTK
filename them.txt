@@ -1,0 +1,20 @@
+Đề tài: quản lý nhân sự trong một công ty
+Tên nhóm: Nhóm 5
+Tên lớp: 66MHT2
+Danh sách thành viên: Tên <MSSV> - LMH - LQL
+	Nguyễn Văn Thường <0206066> - 66MHT2 - 66PM1
+	Ong Thị Hải Linh <0194266> - 66MHT2
+	Ngô Thị Ánh Dương <0185066> - 66MHT2
+        Nguyễn Văn Huỳnh Đức <0187966> (*) - 66MHT2 - 66PM5    
+        Đặng Hồng Thúy <0205866> - 66MHT2 - 66MHT1
+
+
+
+
+link google docx báo cáo
+https://drive.google.com/drive/folders/1FCecCA0vO13646olKY96r-vbfHISIlVN?fbclid=IwAR3YG6xN8zB1jA6UinPizij3-tnnhBSgBpVimGPwxomXjeWI9FrNKoWpxNw
+link project đã deploy
+http://thuong23-001-site1.atempurl.com/
+
+tài khoản: admin
+mật khẩu: namdinh1

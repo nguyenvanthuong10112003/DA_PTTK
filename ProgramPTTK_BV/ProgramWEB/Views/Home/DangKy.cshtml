@@ -1,0 +1,418 @@
+﻿@{
+    ViewBag.Title = "Ngày nghỉ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.pageNow =
+    new LocationPage(DefinePage.home,
+        new LocationPage(DefinePage.home_XemNgayNghi));
+}
+@using ProgramWEB.Models.Object;
+@using ProgramWEB.Define;
+@using ProgramWEB.Libary;
+@section cssContent {
+    <link rel="stylesheet" href="~/Contents/caulendar/style.css">
+    <link href="~/Contents/main/css/management.css" rel="stylesheet" />
+    <link href="~/Contents/main/css/home-management.css" rel="stylesheet" />
+    <link href="~/Contents/alert-f8/style.css" rel="stylesheet" />
+}
+@section jsContent {
+    <script src="~/Contents/alert-f8/script.js"></script>
+    <script src="~/Scripts/caulendar/main.js"></script>
+    <script>
+        var json = JSON.parse("@ViewBag.jsonString".replace(/&quot;/g, '"'));
+        var data = json["data"]
+        var year = json["year"]
+        var month = json["month"]
+        var isPartTime = data.isPartTime
+        $('.content-wrapper').html(`
+            <div id="toast"></div>
+            <section class= "ftco-section" >
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="calendar w-100">
+                                <div class="header">
+                                    <a data-action="prev-month" href="${"/Home/DangKy?" + (month - 1 > 0 ? ("year=" + year + "&month=" + (month - 1)) : ("year=" + (year - 1) + "&month=12")) }" title="Previous Month"><i></i></a>
+                                    <div class="text" data-render="month-year"></div>
+                                    <a data-action="next-month" href="${"/Home/DangKy?" + (month + 1 <= 12 ? ("year=" + year + "&month=" + (month + 1)) : ("year=" + (year + 1) + "&month=1")) }" onclick="nextMonth()" title="Next Month"><i></i></a>
+                                </div>
+                                <div class="months" data-flow="left">
+                                    <div class="month month-a">
+                                        <div class="render render-a"></div>
+                                    </div>
+                                    <div class="month month-b">
+                                        <div class="render render-b"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="content w-100 h-100">
+                                <div class="content-exp w-100">
+                                    <div class="expliquer d-flex flex-row flex-wrap row">
+                                        <div class="item-exp d-flex flex-row col-6">
+                                            <i class="bg-main"></i>
+                                            <span class="text">Ngày hôm nay</span>
+                                        </div>
+                                        <div class="item-exp d-flex flex-row col-6">
+                                            <i class="bg-danger"></i>
+                                            <span class="text">Ngày nghỉ</span>
+                                        </div>
+                                        <div class="item-exp d-flex flex-row col-6">
+                                            <i class="bg-orange"></i>
+                                            <span class="text">Ngày xin nghỉ</span>
+                                        </div>
+                                        ${data.caLams && data.caLams.length > 0 ? `
+                                        <div class="item-exp d-flex flex-row col-6">
+                                            <i class="bg-pink"></i>
+                                            <span class="text">Ngày có ca làm</span>
+                                        </div>` : ''}
+                                        <div class="item-exp d-flex flex-row col-6">
+                                            <i class="bg-success"></i>
+                                            <span class="text">Ngày đã chọn</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="propetie w-100 h-100">
+                                    <h5 class="now"></h5>
+                                    <span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="alert-canh-bao">
+                    <div class="Dialog_wrapper__5aD4q">
+                        <div class="Dialog_overlay__27wcK">
+                        </div>
+                        <div class="Dialog_main__PPXtm">
+                            <div class="Dialog_header__0dUcJ">
+                                <h3 class="Dialog_title__+aMqC">
+                                    Cảnh báo
+                                </h3>
+                                <button class="Dialog_close-button__3tLfG">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="circle-xmark" class="svg-inline--fa fa-circle-xmark " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path fill="currentColor" d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM175 208.1L222.1 255.1L175 303C165.7 312.4 165.7 327.6 175 336.1C184.4 346.3 199.6 346.3 208.1 336.1L255.1 289.9L303 336.1C312.4 346.3 327.6 346.3 336.1 336.1C346.3 327.6 346.3 312.4 336.1 303L289.9 255.1L336.1 208.1C346.3 199.6 346.3 184.4 336.1 175C327.6 165.7 312.4 165.7 303 175L255.1 222.1L208.1 175C199.6 165.7 184.4 165.7 175 175C165.7 184.4 165.7 199.6 175 208.1V208.1z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                            <div class="Dialog_content-wrapper__oTjv7">
+                                <div class="Dialog_content__fC8ze">
+
+                                </div>
+                                <div class="Dialog_action__kFm-L">
+                                    <button class="btn btn-secondary Button_btn__RW1e2 Button_primary__86yfm Dialog_confirm-button__j4ByN" id="canh-bao-cancel">
+                                        Hủy bỏ
+                                    </button>
+                                    <button class="btn btn-primary Button_btn__RW1e2 Button_primary__86yfm Dialog_confirm-button__j4ByN" id="canh-bao-accept">
+                                        Đồng ý
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section >
+        `)
+        var tichCaLamArr = []
+        var tichHuyCaLamArr = []
+        var toActiveSelect = (e) => {
+            $('.active-select').removeClass('active-select')
+            $(e).addClass('active-select')
+            let day = $(e).children().text().trim();
+            let dateSelectString = `${year}-${to2(month)}-${to2(day)}`;
+            var ngayNghi = data.ngayNghis && data.ngayNghis.length > 0 ? data.ngayNghis.find(item =>
+                item.NN_Ngay.substr(0, 10) == dateSelectString) : null
+            var nghiLam = data.dangKyNghiLams && data.dangKyNghiLams.length > 0 ? data.dangKyNghiLams.find(item =>
+                item.DKNL_Ngay.substr(0, 10) == dateSelectString) : null
+            $('.now').text(`Ngày ${day} tháng ${month} năm ${year}`)
+            let htmlGhiChu = "";
+            if (ngayNghi != null) {
+                htmlGhiChu = `Ngày nghỉ <br> Ghi chú: ${ngayNghi.NN_GhiChu ? ngayNghi.NN_GhiChu : 'Không có'}`
+            }
+            if (nghiLam != null) {
+                htmlGhiChu = `Ngày đăng ký nghỉ <br> Nghỉ có phép: ${nghiLam.DKNL_NghiCoPhep === true ? 'Có' : ''} <br>
+                        Lý do nghỉ: ${nghiLam.DKNL_LyDoNghi ? nghiLam.DKNL_LyDoNghi : 'Không có'} <br>
+                        Thời gian đăng ký: ${nghiLam.DKNL_ThoiGianDangKy ? toDateTimeView(nghiLam.DKNL_ThoiGianDangKy) : ''} <br>
+                        ${nghiLam.DKNL_DaDuocDuyet === true ? `<a href="@DefinePage.management_DuyetDangKy.url?ma=${nghiLam.DDK_Ma}" class="text-decoration-underline link">Đã được duyệt</a>`
+                            : `Chưa được duyệt <br> <button type="button" class="btn btn-secondary" onclick="huyDangKyXinNghi('${day}')">Hủy đăng ký</button>`} <br>
+                        `
+            }
+            if (isPartTime) {
+                if (data && data.caLams && data.caLams.length > 0) {
+                    htmlGhiChu += `CA LÀM <br>
+                    <div class="row">${data.caLams.reduce((result, item) => {
+                        if (data && data.dangKyCaLams && data.dangKyCaLams.some(item1 => (item1.DKCL_Ngay.substr(0, 10) == dateSelectString
+                            && item1.CL_Ma == item.CL_Ma)))
+                            return result + `<div class="col-sm-6 col-lg-6 col-xs-12 col-md-4 box-btn">
+                            <button type="button" onclick="tichHuyCaLam(${item.CL_Ma}, this)" class="btn-ca-dang-ky btn btn-white bg-pink">
+                        (${to2(item.CL_GioBatDau) + ':' + to2(item.CL_PhutBatDau) + '-' + to2(item.CL_GioKetThuc) + ':' + to2(item.CL_PhutKetThuc)}) ${item.CL_TenCa}${data.dangKyCaLams.find(item1 => (item1.DKCL_Ngay.substr(0, 10) == dateSelectString
+                                && item1.CL_Ma == item.CL_Ma)).DKCL_DaDuocDuyet ? '<i class="fa-solid fa-calendar-check"></i>' : '<i class="fa-solid fa-clock"></i>'}</button></div>`;
+                        return result + `<div class="col-sm-6 col-lg-6 col-xs-12 col-md-4 box-btn">
+                            <button type="button" onclick="tichCaLam(${item.CL_Ma}, this)" class="btn-ca-lam btn btn-white">${item.CL_TenCa}
+                        (${to2(item.CL_GioBatDau) + ':' + to2(item.CL_PhutBatDau) + '-' + to2(item.CL_GioKetThuc) + ':' + to2(item.CL_PhutKetThuc)})</button></div>`
+                    }, '')}</div>${day > new Date().getDate() ? `<div class="w-100 d-flex flex-row justify-content-end">
+                    <button type="button" onclick="toHuyDangKyCaLam()" class="huy-ca-lam btn btn-secondary" disabled>Hủy đăng ký</button>
+                    <button type="button" onclick="toDangKyCaLam()" class="register-ca-lam btn btn-success bg-orange" disabled>Đăng ký</button></div>` : ''}`
+                }
+                if (day > new Date().getDate() && ngayNghi == null && nghiLam == null &&
+                    (data.caLams && data.dangKyCaLams && data.dangKyCaLams.length > 0 ?
+                        data.dangKyCaLams.some(item => item.DKCL_Ngay.substr(0, 10) == dateSelectString && item.DKCL_DaDuocDuyet) : true)) {
+                    htmlGhiChu += `<button type="button" class="btn btn-primary btn-white float-left" onclick="dangKyNghi('${day}')">Đăng ký nghỉ ngày này</button>`
+                }
+            } else {
+                if (day > new Date().getDate() && ngayNghi == null && nghiLam == null) {
+                    htmlGhiChu += `<button type="button" class="btn btn-primary btn-white float-left" onclick="dangKyNghi('${day}')">Đăng ký nghỉ ngày này</button>`
+                }
+            }
+            $($('.now').parent().children()[1]).html(htmlGhiChu)
+            setActiveXinNghi()
+            setActiveNgayNghi()
+            setActiveNgayCoCaLam()
+        }
+        setting(toActiveSelect)
+        window.onload = function () {
+            new Promise(f => {
+                var t = new Calendar({
+                    RenderID: ".render-a",
+                    Format: "M"
+                });
+                t.Calendar(year, month - 1)
+                t.showCurrent(), t.checkActive();
+                var e = document.querySelectorAll(".header [data-action]");
+                for (i = 0; i < e.length; i++) e[i].onclick = function () {
+                    if (document.querySelector(".calendar .header").setAttribute("class", "header"), "true" == document.querySelector(".months").getAttribute("data-loading")) return document.querySelector(".calendar .header").setAttribute("class", "header active"), !1;
+                    var e;
+                    document.querySelector(".months").setAttribute("data-loading", "true"), this.getAttribute("data-action").includes("prev") ? (t.prevMonth(), e = "left") : (t.nextMonth(), e = "right"), t.checkActive(), document.querySelector(".months").setAttribute("data-flow", e), document.querySelector('.month[data-active="true"]').addEventListener("webkitTransitionEnd", function () {
+                        document.querySelector(".months").removeAttribute("data-loading")
+                    }), document.querySelector('.month[data-active="true"]').addEventListener("transitionend", function () {
+                        document.querySelector(".months").removeAttribute("data-loading")
+                    })
+                }
+                $('.content').show(1000)
+                f()
+            }).then(f => {
+                toActiveSelect($('.cell.active')[0])
+            })
+        };
+        var toDangKyCaLam = () => {
+            let day = $('.active-select').text()
+            onCanhBao("Bạn có chắc chắn muốn đăng ký " + tichCaLamArr.length + " ca làm ngày " + day + " chứ?",
+                () => {
+                    $.ajax({
+                        url: '/DangKy/DangKyCaLam',
+                        data: {
+                            day: day,
+                            month: month,
+                            year: year,
+                            arrCL: tichCaLamArr
+                        },
+                        contentType: "application/json;charset=utf-8",
+                        traditional: true,
+                        dataType: 'json',
+                        success: () => {
+                            location.reload()
+                        },
+                        error: (data) => {
+                            console.log(data)
+                            alert('error')
+                        }
+                    })
+                });
+        }
+        var toHuyDangKyCaLam = () => {
+            let day = $('.active-select').text()
+            onCanhBao("Bạn có chắc chắn muốn hủy đăng ký " + tichCaLamArr.length + " ca làm ngày " + day + " chứ?",
+                () => {
+                    $.ajax({
+                        url: '/DangKy/HuyDangKyCaLam',
+                        data: {
+                            day: day,
+                            month: month,
+                            year: year,
+                            arrCL: tichHuyCaLamArr
+                        },
+                        contentType: "application/json;charset=utf-8",
+                        traditional: true,
+                        dataType: 'json',
+                        success: () => {
+                            location.reload()
+                        },
+                        error: (data) => {
+                            console.log(data)
+                            alert('error')
+                        }
+                    })
+                });
+        }
+        var tichHuyCaLam = (maCL, e) => {
+            if (data.dangKyCaLams)
+                if (data.dangKyCaLams.some(item => item.DKCL_Ngay.substr(0, 10) == `${year}-${to2(month)}-${to2($('.active-select').text())}` && item.DKCL_DaDuocDuyet === true && item.CL_Ma == maCL))
+                    return;
+            if (data.dangKyNghiLams)
+                if (data.dangKyNghiLams.some(item => item.DKNL_Ngay.substr(0, 10) == `${year}-${to2(month)}-${to2($('.active-select').text())}` && item.DKNL_DaDuocDuyet === true))
+                    return;
+            $(e).toggleClass('checked');
+            if (tichHuyCaLamArr.indexOf(maCL) == -1) {
+                tichHuyCaLamArr[tichHuyCaLamArr.length] = maCL;
+            }
+            else {
+                let index = tichHuyCaLamArr.indexOf(maCL)
+                tichHuyCaLamArr = tichHuyCaLamArr.splice(0, index).concat(tichHuyCaLamArr.splice(index + 1, tichHuyCaLamArr.length));
+            }
+            if (tichHuyCaLamArr.length > 0) $('.huy-ca-lam').attr('disabled', false);
+            else $('.huy-ca-lam').attr('disabled', true);
+        }
+        var tichCaLam = (maCL, e) => {
+            if (data.dangKyNghiLams)
+                if (data.dangKyNghiLams.some(item => item.DKNL_Ngay.substr(0, 10) == `${year}-${to2(month)}-${to2($('.active-select').text())}` && item.DKNL_DaDuocDuyet === true))
+                    return;
+            $(e).toggleClass('checked');
+            if (tichCaLamArr.indexOf(maCL) == -1) {
+                tichCaLamArr[tichCaLamArr.length] = maCL;
+            }
+            else {
+                let index = tichCaLamArr.indexOf(maCL)
+                tichCaLamArr = tichCaLamArr.splice(0, index).concat(tichCaLamArr.splice(index + 1, tichCaLamArr.length));
+            }
+            if (tichCaLamArr.length > 0) $('.register-ca-lam').attr('disabled', false);
+            else $('.register-ca-lam').attr('disabled', true);
+        }
+        var setActiveXinNghi = () => {
+            if (this.data != null && this.data.dangKyNghiLams != null && this.data.dangKyNghiLams.length > 0)
+                for (var item of this.data.dangKyNghiLams) {
+                    let ngay = item.DKNL_Ngay.split('-')
+                    ngay = Number.parseInt(ngay[ngay.length - 1].substr(0, 2))
+                    for (let item1 of document.querySelectorAll('.cell span')) {
+                        if ($(item1).text() == ngay) {
+                            if ($(item1).parent().attr('class').indexOf('active') != -1)
+                                continue;
+                            $(item1).parent().addClass('active-orange')
+                        }
+                    }
+                }
+        }
+        var setActiveNgayNghi = () => {
+            if (this.data != null && this.data.ngayNghis != null && this.data.ngayNghis.length > 0)
+                for (var item of this.data.ngayNghis) {
+                    let ngay = item.NN_Ngay.split('-')
+                    ngay = Number.parseInt(ngay[ngay.length - 1].substr(0, 2))
+                    for (let item1 of document.querySelectorAll('.cell span')) {
+                        if ($(item1).text() == ngay) {
+                            if ($(item1).parent().attr('class').indexOf('active') != -1)
+                                continue;
+                            $(item1).parent().addClass('active-danger')
+                        }
+                    }
+                }
+        }
+        var setActiveNgayCoCaLam = () => {
+            if (this.data != null && this.data.dangKyCaLams != null && this.data.dangKyCaLams.length > 0)
+                for (var item of this.data.dangKyCaLams) {
+                    let ngay = item.DKCL_Ngay.split('-')
+                    ngay = Number.parseInt(ngay[ngay.length - 1].substr(0, 2))
+                    for (let item1 of document.querySelectorAll('.cell span')) {
+                        if ($(item1).text() == ngay && !$(item1).attr('class') || ($(item1).attr('class') && $(item1).attr('class').indexOf('active-pink') == -1)) {
+                            if ($(item1).parent().attr('class').indexOf('active') != -1)
+                                continue;
+                            $(item1).parent().addClass('active-pink')
+                        }
+                    }
+                }
+        }
+        var huyDangKyXinNghi = (ngay) => {
+            if (ngay[0] == 0) ngay = ngay[1];
+            if (ngay < 1 || ngay > 31) return;
+            onCanhBao("Bạn có chắc chắn muốn hủy xin nghỉ ngày " + ngay + " chứ?",
+                (data) => {
+                    var date = new Date();
+                    $.ajax(
+                        {
+                            url: `/DangKy/HuyDangKyNghiLam?day=${ngay}&month=${date.getMonth() + 1}&year=${date.getFullYear()}`,
+                            dataType: 'json',
+                            success: (data) => {
+                                if (data["success"]) {
+                                    location.reload()
+                                }
+                                if (data["error"])
+                                    toast({ title: 'Thất bại', message: data['error'], type: 'error', duration: 2000 })
+                            },
+                            error: () => {
+                                console.log('error');
+                            }
+                        }
+                    )
+                }
+            )
+        }
+        var dangKyNghi = (ngay) => {
+            if (ngay[0] == 0) ngay = ngay[1];
+            if (ngay < 1 || ngay > 31) return;
+            var date = new Date();
+            onCanhBao("Bạn có chắc chắn muốn xin nghỉ ngày " + ngay + " chứ?",
+                (data) => {
+                    $.ajax(
+                        {
+                            url: `/DangKy/DangKyNghiLam`,
+                            data: data,
+                            dataType: 'json',
+                            success: (data) => {
+                                if (data["success"]) {
+                                    location.reload()
+                                }
+                                if (data["error"])
+                                    toast({ title: 'Thất bại', message: data['error'], type: 'error', duration: 2000 })
+                            },
+                            error: () => {
+                                console.log('error');
+                            }
+                        }
+                    )
+                }, {
+                DKNL_Ngay: `${date.getFullYear()}-${date.getMonth() + 1}-${ngay}`,
+            }, `
+                <div>
+                    <label for="ly-do-xin-nghi">Lý do xin nghỉ</label>
+                    <textarea id="ly-do-xin-nghi" name="ly-do-xin-nghi">
+                    </textarea>
+                    <p id="error-ly-do" class="text-danger">&nbsp;</p>
+                </div>
+                `
+            )
+        }
+        var onCanhBao = function (content, fun, data, htmlContent, jsContent) {
+            $('.Dialog_content__fC8ze').text(content);
+            if (htmlContent) {
+                $('.Dialog_content__fC8ze').html($('.Dialog_content__fC8ze').html() + htmlContent)
+            }
+            $('#alert-canh-bao').show();
+            $('#canh-bao-cancel').click(function () {
+                $('#alert-canh-bao').hide();
+            });
+            $('.svg-inline--fa.fa-circle-xmark').click(function () {
+                $('#alert-canh-bao').hide();
+            })
+            $('#canh-bao-accept').click(function () {
+                if (htmlContent) {
+                    $('#error-ly-do').html('&nbsp;');
+                    if (!$('#ly-do-xin-nghi').val() || $('#ly-do-xin-nghi').val().trim().length == 0) {
+                        $('#error-ly-do').text('Trường này không được để trống');
+                        return;
+                    }
+                }
+                $('#alert-canh-bao').hide();
+                fun(htmlContent ? {
+                    DKNL_NghiCoPhep: true,
+                    DKNL_LyDoNghi: $('#ly-do-xin-nghi').val(),
+                    ...data
+                } : data);
+                fun = function () { }
+            })
+        }
+        $('.content').hide()
+        $('#alert-canh-bao').hide()
+    </script>
+}
+<div class="content-wrapper">
+</div>
