@@ -7,4 +7,4 @@ Hướng dẫn run code
   + user id = tên đăng nhập sql server
   + password = mật khẩu đăng nhập sql server
 * Tài khoản admin : username: admin, password: namdinh1
-# DA_WEB_NC
+# DA_PTTK
